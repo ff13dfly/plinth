@@ -1,7 +1,8 @@
 import { Row, Col } from 'react-bootstrap';
 import { useEffect,useState} from 'react';
 
-function Search(props) {
+
+function Stage(props) {
 
   let [info,setInfo]=useState('');
 
@@ -15,4 +16,4 @@ function Search(props) {
     </Row>
   );
 }
-export default Search;
+export default Stage;

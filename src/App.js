@@ -5,14 +5,15 @@ import { Keyring } from '@polkadot/api';
 
 import { Container } from 'react-bootstrap';
 import Header from './structure/header';
+import Stage from './structure/stage';
 import Footer from './structure/footer';
 
 function App() {
   return (
     <Container>
-      <Header></Header>
-      <div id="container"></div>
-      <Footer></Footer>
+      <Header />
+      <Stage />
+      <Footer />
     </Container>
   );
 }
