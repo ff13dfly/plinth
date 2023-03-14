@@ -8,10 +8,14 @@ Basic framework for cApp ( chain application ), make blockchain development easy
 
 * React
 
+* Jquery
+
 ## Functions
 
 ### Account Management
 
-### Node Management
+### Server Management
+
+### Publish Management
 
 ### Setting
