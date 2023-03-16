@@ -1,18 +1,22 @@
-import { Row, Col } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { useEffect,useState} from 'react';
 
 function Dialog(props) {
 
   let [info,setInfo]=useState('');
+  let [show,setShow]=useState(false);
 
   useEffect(() => {
     setInfo('Done');
   }, []);
 
   return (
-    <Row>
-      <Col lg={12} xs={12} className="pt-2" >{info}</Col>
-    </Row>
+    <Modal show={show}>
+      <Modal.Header closeButton>
+        <Modal.Title >{info}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body ></Modal.Body>
+    </Modal>
   );
 }
 export default Dialog;
