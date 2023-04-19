@@ -2,6 +2,8 @@
 import { useState,useEffect} from 'react';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { Keyring } from '@polkadot/api';
+import { anchorJS } from "./lib/anchor";
+import { easyRun } from "./lib/easy";
 
 import { Container } from 'react-bootstrap';
 import Header from './structure/header';
@@ -15,6 +17,24 @@ const tpl={
   server:"server",
   publish:"publish",
   setting:"setting",
+};
+
+const self={
+  prepare:(node,ck)=>{
+    try {
+        //console.log({node});
+        const provider = new WsProvider(node);
+        ApiPromise.create({ provider: provider }).then((api) => {
+            if(!anchorJS.set(api)){
+                console.log('Error anchor node.');
+            }
+            anchorJS.setKeyring(Keyring);
+            return ck && ck();
+        });
+    } catch (error) {
+        return ck && ck(error);
+    }
+  },
 };
 
 function App() {
@@ -40,6 +60,25 @@ function App() {
 
   useEffect(() => {
     console.log('Load cApp here');
+    const server="ws://127.0.0.1:9944";
+    const API={
+      "common":{
+          "latest":anchorJS.latest,
+          "target":anchorJS.target,
+          "history":anchorJS.history,
+          "owner":anchorJS.owner,
+          "subcribe":anchorJS.subcribe,
+          "block":anchorJS.block,
+      },
+    };
+    self.prepare(server,()=>{
+      const linker_full_caller="anchor://full_caller/?hello=world&me=fuu";
+      
+      easyRun(linker_full_caller,API,(result)=>{
+          console.log(`-----------------result-----------------`);
+          console.log(JSON.stringify(result));
+      });
+    });
   }, []);
 
   return (
