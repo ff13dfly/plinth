@@ -25,3 +25,5 @@ yarn-error.log*
 # more
 package-lock.json
 yarn.lock
+
+src/lib/testme.js

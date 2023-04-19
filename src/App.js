@@ -3,7 +3,7 @@ import { useState,useEffect} from 'react';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { Keyring } from '@polkadot/api';
 import { anchorJS } from "./lib/anchor";
-import { easyRun } from "./lib/easy";
+//import * as easyRun from "./lib/easy";
 
 import { Container } from 'react-bootstrap';
 import Header from './structure/header';
@@ -11,6 +11,8 @@ import Stage from './structure/stage';
 import Page from './structure/page';
 import Footer from './structure/footer';
 import Dialog from './structure/dialog';
+
+import {easyRun} from "./lib/easy";
 
 const tpl={
   account:"account",
@@ -59,7 +61,8 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('Load cApp here');
+    //console.log('Load cApp here');
+
     const server="ws://127.0.0.1:9944";
     const API={
       "common":{
