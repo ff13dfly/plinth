@@ -12,6 +12,7 @@ import Dock from './structure/dock';
 import Page from './structure/page';
 import Footer from './structure/footer';
 import Dialog from './structure/dialog';
+import Search from './structure/search';
 import { Config } from './config/default.js';
 
 import {easyRun} from "./lib/easy";
@@ -42,10 +43,9 @@ const self={
 };
 
 function App() {
-  //let [router,setRouter]=useState('');
-  //let [show,setShow]=useState(false);
-  let [page,setPage]=useState('');
 
+  //page actions
+  let [page,setPage]=useState('');
   const interaction={
     showPage:(target)=>{
       console.log(target);
@@ -62,6 +62,7 @@ function App() {
     },
   };
 
+  //Dialog actions
   let [showDialog,setshowDialog]=useState(false);
   let [title,setTitle]=useState('');
   let [content,setContent]=useState('');
@@ -77,6 +78,22 @@ function App() {
       if(title !==undefined) setTitle(title);
     },
   };
+
+  //Stage actions
+  let [stageList,setStageList]=useState([]);
+  let [dancer,setDancer]=useState(<Stage content={stageList}/>);
+  const stage={
+    set:(view)=>{
+      stageList.push(view);
+    },
+    render:()=>{
+      setDancer(<Stage content={stageList}/>);
+    },
+    clear:()=>{
+      setStageList([]);
+    },
+  }
+
 
   useEffect(() => {
     //console.log('Load cApp here');
@@ -110,10 +127,11 @@ function App() {
       <Container id={Config.ID.stage} fluid>
         <Row>
           <Col md={10} lg={10} xl={10} xxl={10} className="pt-2" >
-            <Stage />
+            <Search stage={stage}/>
+            {dancer}
           </Col>
           <Col md={2} lg={2} xl={2} xxl={2} className="pt-2 d-none d-md-block d-lg-block d-xl-block  d-xl-block" >
-            <Dock dialog={dialog}/>
+            <Dock dialog={dialog} stage={stage}/>
           </Col>
         </Row>
       </Container>

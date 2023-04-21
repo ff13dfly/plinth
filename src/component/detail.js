@@ -1,19 +1,22 @@
 import { Row, Col } from 'react-bootstrap';
 import { useEffect,useState} from 'react';
 
-function Overview(props) {
+function Detail(props) {
+  
+  const anchor=props.anchor;
 
   let [info,setInfo]=useState('');
 
   useEffect(() => {
-    setInfo('Done');
+    setInfo('Checked');
   }, []);
 
   return (
     <Row>
-      <Col lg={12} className="pt-2" >{props.name}</Col>
+      <Col lg={12} className="pt-2" >Owner: {anchor.name}</Col>
+      <Col lg={12} className="pt-2" >Stamp: {anchor.stamp}</Col>
       <Col lg={12} className="pt-2" >{info}</Col>
     </Row>
   );
 }
-export default Overview;
+export default Detail;

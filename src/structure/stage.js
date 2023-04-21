@@ -1,12 +1,12 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { useEffect,useState} from 'react';
+import { useEffect} from 'react';
 
 function Stage(props) {
-
-  let [dancer,setDancer]=useState('');
+  const content=props.content;
+  
+  console.log(content);
 
   useEffect(() => {
-    setDancer('Stage is here to show');
   }, []);
   return (
     <Container className='vh-100' >
@@ -14,7 +14,9 @@ function Stage(props) {
         <Col lg={3} xs={4} className="pt-2 d-block d-md-none d-lg-none d-xl-none d-xxl-none">left opts</Col>
         <Col lg={6} xs={4} className="pt-2 d-block d-md-none d-lg-none d-xl-none d-xxl-none">title</Col>
         <Col lg={3} xs={4} className="pt-2 d-block d-md-none d-lg-none d-xl-none d-xxl-none" >right opts</Col>
-        <Col lg={12} xs={12} className="pt-2">{dancer}</Col>
+        {content.map((item,index) => (
+          <Col lg={12} xs={12} key={index} className="pt-2">{item}</Col>
+        ))}
       </Row>
     </Container>
   );
