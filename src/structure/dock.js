@@ -1,10 +1,26 @@
-import { Container,Row, Col, Accordion, Button,Form } from 'react-bootstrap';
+import { Container,Row, Col, Button,Form } from 'react-bootstrap';
 import { useEffect,useState} from 'react';
 import { Config } from '../config/default.js';
 
 function Dock(props) {
 
   let [name,setName]=useState("");
+
+  const dialog=props.dialog;
+  const pages={
+    setting:{
+      title:"Setting",
+      content:"",
+    },
+    publish:{
+      title:"Publish Management",
+      content:"",
+    },
+    account:{
+      title:"Account Management",
+      content:"",
+    },
+  };
 
   const self={
     onChange:(ev)=>{
@@ -16,7 +32,15 @@ function Dock(props) {
       }
     },
     load:(name)=>{
+
       console.log(name);
+    },
+
+    showDialog:(router)=>{
+      if(!pages[router]) return false;
+      const tpl=pages[router];
+      dialog.set(tpl.content,tpl.title);
+      dialog.show();
     },
   };
 
@@ -91,13 +115,19 @@ function Dock(props) {
         <div className="position-absolute bottom-0 start-0 pb-4 vh-25 w-100 d-grid gap-2">
           <Row>
             <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
-              <Button size="sm" variant="secondary" onClick={()=>{}} >Account</Button>
+              <Button size="sm" variant="secondary" onClick={()=>{
+                self.showDialog("account");
+              }} >Account</Button>
             </Col>
             <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
-              <Button size="sm" variant="secondary" onClick={()=>{}} >Publish</Button>
+              <Button size="sm" variant="secondary" onClick={()=>{
+                self.showDialog("publish");
+              }} >Publish</Button>
             </Col>
             <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
-              <Button size="sm" variant="secondary" onClick={()=>{}} >Setting</Button>
+              <Button size="sm" variant="secondary" onClick={()=>{
+                self.showDialog("setting");
+              }} >Setting</Button>
             </Col>  
           </Row>
         </div>

@@ -45,7 +45,7 @@ function App() {
   //let [router,setRouter]=useState('');
   //let [show,setShow]=useState(false);
   let [page,setPage]=useState('');
-  
+
   const interaction={
     showPage:(target)=>{
       console.log(target);
@@ -62,8 +62,26 @@ function App() {
     },
   };
 
+  let [showDialog,setshowDialog]=useState(false);
+  let [title,setTitle]=useState('');
+  let [content,setContent]=useState('');
+  const dialog={
+    show:()=>{
+      setshowDialog(true);
+    },
+    hide:()=>{
+      setshowDialog(false);
+    },
+    set:(ctx,title)=>{
+      if(ctx !==undefined) setContent(ctx);
+      if(title !==undefined) setTitle(title);
+    },
+  };
+
   useEffect(() => {
     //console.log('Load cApp here');
+    // dialog.set("This is body","Hello world");
+    // dialog.show();
 
     const server="ws://127.0.0.1:9944";
     const API={
@@ -95,13 +113,12 @@ function App() {
             <Stage />
           </Col>
           <Col md={2} lg={2} xl={2} xxl={2} className="pt-2 d-none d-md-block d-lg-block d-xl-block  d-xl-block" >
-            <Dock />
+            <Dock dialog={dialog}/>
           </Col>
-          
         </Row>
       </Container>
       <Footer interaction={interaction} />
-      <Dialog />
+      <Dialog show={showDialog} funs={dialog} title={title} content={content}/>
     </Container>
   );
 }

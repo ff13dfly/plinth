@@ -3,19 +3,27 @@ import { useEffect,useState} from 'react';
 
 function Dialog(props) {
 
-  let [info,setInfo]=useState('');
-  let [show,setShow]=useState(false);
+  const funs=props.funs;
+
+  const self={
+    hideDialog:()=>{
+      console.log('good to go');
+      funs.hide();
+    },
+  }
 
   useEffect(() => {
-    setInfo('Done');
+
   }, []);
 
   return (
-    <Modal show={show}>
+    <Modal show={props.show} onHide={self.hideDialog}>
       <Modal.Header closeButton>
-        <Modal.Title >{info}</Modal.Title>
+        <Modal.Title >{props.title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body ></Modal.Body>
+      <Modal.Body >
+        {props.content}
+      </Modal.Body>
     </Modal>
   );
 }
