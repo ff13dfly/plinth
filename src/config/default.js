@@ -5,6 +5,8 @@ exports.Config = {
         stage:"capp_container",
         header:"header_container",
         footer:"footer_container",
+        dockFooter:"dock_footer",
+        dock:"dock_container",
     },
     template:"page",                //template folder
     pages:{

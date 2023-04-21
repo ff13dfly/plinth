@@ -12,7 +12,6 @@ import Dock from './structure/dock';
 import Page from './structure/page';
 import Footer from './structure/footer';
 import Dialog from './structure/dialog';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Config } from './config/default.js';
 
 import {easyRun} from "./lib/easy";
@@ -87,18 +86,18 @@ function App() {
   }, []);
 
   return (
-    <Container fluid>
+    <Container>
       <Header interaction={interaction}/>
-
       {page}
       <Container id={Config.ID.stage} fluid>
         <Row>
-          <Col lg={3} xl={3} xxl={2} className="pt-2 d-none d-lg-block d-xl-block  d-xl-block" >
-            <Dock />
-          </Col>
-          <Col sm={12} md={12} lg={9} xl={9} xxl={10} className="pt-2" >
+          <Col md={10} lg={10} xl={10} xxl={10} className="pt-2" >
             <Stage />
           </Col>
+          <Col md={2} lg={2} xl={2} xxl={2} className="pt-2 d-none d-md-block d-lg-block d-xl-block  d-xl-block" >
+            <Dock />
+          </Col>
+          
         </Row>
       </Container>
       <Footer interaction={interaction} />

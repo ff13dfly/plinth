@@ -12,13 +12,13 @@ function Header(props) {
   }, []);
 
   return (
-    <Container id={Config.ID.header} fluid>
+    <Container id={Config.ID.header} fluid className="d-block d-md-none d-lg-none d-xl-none d-xxl-none">
       <Row>
         <Col lg={3} xs={3} className="pt-2" >
           <Button size="sm" variant="primary" onClick={()=>{interaction.closePage("close")}} >x</Button>
         </Col>
         <Col lg={9} xs={9} className="pt-2 text-end" >
-          <Button size="sm" variant="primary" onClick={()=>{interaction.showPage("account")}} >A</Button>
+          <Button size="sm" variant="primary" onClick={()=>{interaction.showPage("account")}}>A</Button>
           <Button size="sm" variant="primary" onClick={()=>{interaction.showPage("server")}} >N</Button>
         </Col>
       </Row>

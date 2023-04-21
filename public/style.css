@@ -1,3 +1,5 @@
-#capp_container {z-index: 50;background: #FFBBCC;position: fixed;left: 0px;top: 0px;height: 100%;}
+#capp_container {z-index: 50;background: #FFFFFF;position: fixed;left: 0px;top: 0px;height: 100%;}
 #header_container{z-index: 99;position: fixed;left: 0px;top:0px;}
 #footer_container{z-index: 99;position: fixed;left: 0px;bottom: 0px;}
+#dock_container{height: 100%;}
+#dock_footer{position: relative;left: 0px;bottom: 0px;}
