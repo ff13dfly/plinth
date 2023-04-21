@@ -11,7 +11,7 @@ function Footer(props) {
   }, []);
 
   return (
-    <Container id={Config.ID.footer}>
+    <Container id={Config.ID.footer} fluid>
       <Row>
         <Col lg={3} xs={3} className="pt-2" >{info}</Col>
         <Col lg={9} xs={9} className="pt-2 text-end" >

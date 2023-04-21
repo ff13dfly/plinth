@@ -5,12 +5,15 @@ import { Keyring } from '@polkadot/api';
 import { anchorJS } from "./lib/anchor";
 //import * as easyRun from "./lib/easy";
 
-import { Container } from 'react-bootstrap';
+import { Container,Row,Col } from 'react-bootstrap';
 import Header from './structure/header';
 import Stage from './structure/stage';
+import Dock from './structure/dock';
 import Page from './structure/page';
 import Footer from './structure/footer';
 import Dialog from './structure/dialog';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Config } from './config/default.js';
 
 import {easyRun} from "./lib/easy";
 
@@ -75,20 +78,29 @@ function App() {
       },
     };
     self.prepare(server,()=>{
-      const linker_full_caller="anchor://full_caller/?hello=world&me=fuu";
+      // const linker_full_caller="anchor://full_caller/?hello=world&me=fuu";
       
-      easyRun(linker_full_caller,API,(result)=>{
-          console.log(`-----------------result-----------------`);
-          console.log(JSON.stringify(result));
-      });
+      // easyRun(linker_full_caller,API,(result)=>{
+      //     console.log(result);
+      // });
     });
   }, []);
 
   return (
-    <Container>
+    <Container fluid>
       <Header interaction={interaction}/>
+
       {page}
-      <Stage />
+      <Container id={Config.ID.stage} fluid>
+        <Row>
+          <Col lg={3} xl={3} xxl={2} className="pt-2 d-none d-lg-block d-xl-block  d-xl-block" >
+            <Dock />
+          </Col>
+          <Col sm={12} md={12} lg={9} xl={9} xxl={10} className="pt-2" >
+            <Stage />
+          </Col>
+        </Row>
+      </Container>
       <Footer interaction={interaction} />
       <Dialog />
     </Container>

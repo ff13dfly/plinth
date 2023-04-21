@@ -2,6 +2,8 @@ import { Row, Col } from 'react-bootstrap';
 import { useEffect,useState} from 'react';
 import { Config } from '../config/default.js';
 
+//dialog page container, hidden default
+
 function Page(props) {
   const router=props.router;
   const show=props.show;
