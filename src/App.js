@@ -1,9 +1,5 @@
 
 import { useState,useEffect} from 'react';
-import { ApiPromise, WsProvider } from '@polkadot/api';
-import { Keyring } from '@polkadot/api';
-import { anchorJS } from "./lib/anchor";
-//import * as easyRun from "./lib/easy";
 
 import { Container,Row,Col } from 'react-bootstrap';
 import Header from './structure/header';
@@ -15,32 +11,12 @@ import Dialog from './structure/dialog';
 import Search from './structure/search';
 import { Config } from './config/default.js';
 
-import {easyRun} from "./lib/easy";
-
-const tpl={
-  account:"account",
-  server:"server",
-  publish:"publish",
-  setting:"setting",
-};
-
-const self={
-  prepare:(node,ck)=>{
-    try {
-        //console.log({node});
-        const provider = new WsProvider(node);
-        ApiPromise.create({ provider: provider }).then((api) => {
-            if(!anchorJS.set(api)){
-                console.log('Error anchor node.');
-            }
-            anchorJS.setKeyring(Keyring);
-            return ck && ck();
-        });
-    } catch (error) {
-        return ck && ck(error);
-    }
-  },
-};
+// const tpl={
+//   account:"account",
+//   server:"server",
+//   publish:"publish",
+//   setting:"setting",
+// };
 
 function App() {
 
@@ -96,28 +72,6 @@ function App() {
 
 
   useEffect(() => {
-    //console.log('Load cApp here');
-    // dialog.set("This is body","Hello world");
-    // dialog.show();
-
-    const server="ws://127.0.0.1:9944";
-    const API={
-      "common":{
-          "latest":anchorJS.latest,
-          "target":anchorJS.target,
-          "history":anchorJS.history,
-          "owner":anchorJS.owner,
-          "subcribe":anchorJS.subcribe,
-          "block":anchorJS.block,
-      },
-    };
-    self.prepare(server,()=>{
-      // const linker_full_caller="anchor://full_caller/?hello=world&me=fuu";
-      
-      // easyRun(linker_full_caller,API,(result)=>{
-      //     console.log(result);
-      // });
-    });
   }, []);
 
   return (

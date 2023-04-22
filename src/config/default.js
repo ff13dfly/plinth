@@ -14,5 +14,7 @@ exports.Config = {
         server:true,
         publish:true,
         setting:true,
-    }
+    },
+    node:"ws://127.0.0.1:9944",
+    recommand:"",
 };

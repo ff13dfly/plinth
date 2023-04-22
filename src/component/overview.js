@@ -1,18 +1,19 @@
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { useEffect,useState} from 'react';
 
 function Overview(props) {
-
-  let [info,setInfo]=useState('');
+  //let [info,setInfo]=useState('');
 
   useEffect(() => {
-    setInfo('Done');
+    //setInfo('Done');
   }, []);
 
   return (
     <Row>
-      <Col lg={12} className="pt-2" >{props.name}</Col>
-      <Col lg={12} className="pt-2" >{info}</Col>
+      <Col lg={9} className="pt-2" >{props.name}</Col>
+      <Col lg={3} className="pt-2" >
+        <Button size="lg" variant="primary" onClick={()=>{}} >Run</Button>
+      </Col>
     </Row>
   );
 }

@@ -81,16 +81,14 @@ const self = {
 		return true;
 	},
 
-	block:(ck) => {
+	block:(ck,keep) => {
 		if (!self.ready()) return ck && ck(false);
 		let unblock=null;
 		wsAPI.rpc.chain.subscribeFinalizedHeads((lastHeader) => {
 			const hash = lastHeader.hash.toHex();
 			const block=lastHeader.number.toJSON();
-			if(unblock!==null) unblock();
-			if(ck){
-				ck(block,hash);
-			} 
+			if(unblock!==null && !keep) unblock();
+			ck && ck(block,hash);
 		}).then((fun) => {
 			unblock = fun;
 		});
