@@ -20,12 +20,11 @@ import { easyRun } from "./lib/easy";
 import STORAGE from './lib/storage';
 
 function App() {
-  //set storage map
+  //init actions.
   STORAGE.setMap(Config.map);
+  let [info,setInfo]=useState("");
 
   //Common APIs
-  let [info,setInfo]=useState("");
-  
   let API={
     anchorJS: anchorJS,
     polkadot: null,
@@ -56,8 +55,11 @@ function App() {
   };
 
   //Stage actions
+  let [key_dock, setKeyDock]=useState(0);
+  let [key_search,setKeySearch]=useState(0);
+  let [key_dancer,setKeyDancer]=useState(0);
   let [stageList,setStageList]=useState([]);
-  let [dancer,setDancer]=useState(<Stage content={stageList}/>);
+  let [dancer,setDancer]=useState(<Stage content={stageList} key={key_dancer}/>);
   const stage={
     set:(view)=>{
       if(Array.isArray(view)){
@@ -67,14 +69,22 @@ function App() {
       }
     },
     render:()=>{
-      setDancer(<Stage content={stageList}/>);
+      setDancer(<Stage content={stageList} key={key_dancer}/>);
     },
     clear:()=>{
       setStageList([]);
     },
+
     //FIXME get APIs here is not proper, but better that global `window.$API`
     getAPIs:()=>{   
       return API;
+    },
+    force:()=>{
+      console.log(`Force fresh`);
+      setKeyDock(key_dock+1);
+      setKeySearch(key_search+1);
+      setKeyDancer(key_dancer+1);
+      stage.render();
     },
   }
 
@@ -112,6 +122,7 @@ function App() {
       if(title !==undefined) setTitle(title);
     },
   };
+
   useEffect(() => {
     prepare(Config.node,(res)=>{
       console.log('here');
@@ -136,15 +147,14 @@ function App() {
                 <img src="logo.png" alt="logo" className='img-fluid' />
               </Col>
               <Col md={6} lg={6} xl={6} xxl={6}  className="pt-2">
-                <Search stage={stage}/>
+                <Search stage={stage} key={key_search}/>
               </Col>
               <Col md={4} lg={4} xl={4} xxl={4}  className="pt-3 text-end">{info}</Col>
             </Row>
-            
             {dancer}
           </Col>
           <Col md={2} lg={2} xl={2} xxl={2} className="pt-2 d-none d-md-block d-lg-block d-xl-block  d-xl-block" >
-            <Dock stage={stage} dialog={dialog} />
+            <Dock stage={stage} dialog={dialog} key={key_dock} />
           </Col>
         </Row>
       </Container>

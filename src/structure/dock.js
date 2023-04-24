@@ -45,9 +45,7 @@ function Dock(props) {
     },
     load: (name) => {
       const APIs = stage.getAPIs();
-      //console.log(APIs);
-      console.log(name);
-      Preter(name, APIs, (list) => {
+      Preter(name, APIs, stage, props.key, (list) => {
         stage.clear();
         stage.set(list);
         stage.render();
@@ -66,9 +64,8 @@ function Dock(props) {
   //console.log(list);
 
   useEffect(() => {
-    const list = STORAGE.getQueue(Config.map.favs);
-    console.log(list);
-    setList(["full_caller", "full_app", "uniswap","cpx_hide"]);
+    const list = STORAGE.getQueue("favs");
+    setList(list);
   }, []);
 
   return (

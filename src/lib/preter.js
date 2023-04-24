@@ -5,7 +5,7 @@ import History from '../component/history.js';
 import Error from '../component/error.js';
 
 const Preter={
-  auto:(name,APIs,ck)=>{
+  auto:(name,APIs,stage,key,ck)=>{
     const list=[];
     const anchorJS=APIs.anchorJS;
 
@@ -14,10 +14,10 @@ const Preter={
         list.push(<Error data="No such anchor"/>);
         return ck && ck(list);
       } 
-      list.push(<Overview name={name}/>);
-      list.push(<Detail anchor={anchor}/>);
-      list.push(<Raw anchor={anchor}/>);
-      list.push(<History anchor={anchor}/>);
+      list.push(<Overview name={name} stage={stage} key={key}/>);
+      list.push(<Detail anchor={anchor} key={key}/>);
+      list.push(<Raw anchor={anchor} key={key}/>);
+      list.push(<History anchor={anchor} key={key}/>);
       return ck && ck(list);
     });
   },
@@ -25,7 +25,6 @@ const Preter={
   group:(APIs)=>{
 
   },
-
 };
 
 export default Preter.auto;

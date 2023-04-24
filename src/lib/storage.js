@@ -79,8 +79,11 @@ const STORAGE={
 		return JSON.parse(str);
 	},
 	footQueue:(name,atom)=>{
+		console.log(name);
+		console.log(map);
 		if(!map[name]) return [];
 		const key=map[name];
+		console.log(key);
 		const qu=STORAGE.getQueue(name);
 		qu.push(atom);
 		localStorage.setItem(key,JSON.stringify(qu));

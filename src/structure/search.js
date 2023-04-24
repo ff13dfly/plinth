@@ -26,7 +26,7 @@ function Search(props) {
         return false;
       }
       const APIs=stage.getAPIs();
-      Preter(cname,APIs,(list)=>{
+      Preter(cname,APIs,stage,props.key,(list)=>{
         stage.clear();
         stage.set(list);
         stage.render();
