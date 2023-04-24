@@ -14,10 +14,15 @@ import { Config } from './config/default.js';
 
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { Keyring } from '@polkadot/api';
-import { anchorJS } from "./lib/anchor.js";
+import { anchorJS } from "./lib/anchor";
 import { easyRun } from "./lib/easy";
 
+import STORAGE from './lib/storage';
+
 function App() {
+  //set storage map
+  STORAGE.setMap(Config.map);
+
   //Common APIs
   let [info,setInfo]=useState("");
   
@@ -55,7 +60,11 @@ function App() {
   let [dancer,setDancer]=useState(<Stage content={stageList}/>);
   const stage={
     set:(view)=>{
-      stageList.push(view);
+      if(Array.isArray(view)){
+        for(let i=0;i<view.length;i++)stageList.push(view[i]);
+      }else{
+        stageList.push(view);
+      }
     },
     render:()=>{
       setDancer(<Stage content={stageList}/>);
@@ -122,7 +131,16 @@ function App() {
         <Row>
           <Col md={12} lg={12} xl={12} xxl={12} className="pt-2" ></Col>
           <Col md={10} lg={10} xl={10} xxl={10} className="pt-2" >
-            <Search stage={stage} info={info}/>
+            <Row className='vh-75'>
+              <Col md={2} lg={2} xl={2} xxl={2}  className="pt-2">
+                <img src="logo.png" alt="logo" className='img-fluid' />
+              </Col>
+              <Col md={6} lg={6} xl={6} xxl={6}  className="pt-2">
+                <Search stage={stage}/>
+              </Col>
+              <Col md={4} lg={4} xl={4} xxl={4}  className="pt-3 text-end">{info}</Col>
+            </Row>
+            
             {dancer}
           </Col>
           <Col md={2} lg={2} xl={2} xxl={2} className="pt-2 d-none d-md-block d-lg-block d-xl-block  d-xl-block" >

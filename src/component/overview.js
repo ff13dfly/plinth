@@ -1,18 +1,26 @@
 import { Row, Col, Button } from 'react-bootstrap';
-import { useEffect,useState} from 'react';
+import { useEffect} from 'react';
 
 function Overview(props) {
-  //let [info,setInfo]=useState('');
+  const self={
+    add:(name)=>{
+      console.log(name);
+    },
+    remove:(name)=>{
 
-  useEffect(() => {
-    //setInfo('Done');
-  }, []);
+    },
+  };
+  // useEffect(() => {
+
+  // }, []);
 
   return (
     <Row>
       <Col lg={8} className="pt-2" >{props.name}</Col>
       <Col lg={2} className="pt-2 text-end">
-        <Button size="lg" variant="primary" onClick={()=>{}} >Fav</Button>
+        <Button size="lg" variant="primary" onClick={()=>{
+          self.add(props.name);
+        }} >Fav</Button>
       </Col>
       <Col lg={2} className="pt-2 text-end">
         <Button size="lg" variant="primary" onClick={()=>{}} >Run</Button>

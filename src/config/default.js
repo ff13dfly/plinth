@@ -15,6 +15,10 @@ exports.Config = {
         publish:true,
         setting:true,
     },
+    map:{
+        favs:"fav_queue",
+        data:"fav_map",
+    },
     //network interaction
     node:"ws://127.0.0.1:9944",
     recommand:"plinth_recommand",       //anchor name which store the recommand list
