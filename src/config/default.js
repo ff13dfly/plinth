@@ -15,6 +15,7 @@ exports.Config = {
         publish:true,
         setting:true,
     },
+    //network interaction
     node:"ws://127.0.0.1:9944",
-    recommand:"",
+    recommand:"plinth_recommand",       //anchor name which store the recommand list
 };

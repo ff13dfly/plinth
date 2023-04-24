@@ -3,8 +3,6 @@ import { useEffect} from 'react';
 
 function Stage(props) {
   const content=props.content;
-
-  console.log(content);
   useEffect(() => {
   }, []);
   return (

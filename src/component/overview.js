@@ -10,8 +10,11 @@ function Overview(props) {
 
   return (
     <Row>
-      <Col lg={9} className="pt-2" >{props.name}</Col>
-      <Col lg={3} className="pt-2" >
+      <Col lg={8} className="pt-2" >{props.name}</Col>
+      <Col lg={2} className="pt-2 text-end">
+        <Button size="lg" variant="primary" onClick={()=>{}} >Fav</Button>
+      </Col>
+      <Col lg={2} className="pt-2 text-end">
         <Button size="lg" variant="primary" onClick={()=>{}} >Run</Button>
       </Col>
     </Row>
