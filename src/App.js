@@ -19,6 +19,10 @@ import { easyRun } from "./lib/easy";
 
 import STORAGE from './lib/storage';
 
+import Iframe from './component/iframe.js';
+
+//https://react-bootstrap.github.io/components/badge/
+
 function App() {
   //init actions.
   STORAGE.setMap(Config.map);
@@ -132,6 +136,14 @@ function App() {
         },true);
       }
     });
+
+    const url_git="https://github.com/ff13dfly";
+    const url_free="https://freesaying.net";
+    const url_vbw="http://localhost/world/web";
+    stage.clear();
+    stage.set(<Iframe url={url_vbw}/>);
+    stage.render();
+
   }, []);
 
   return (
