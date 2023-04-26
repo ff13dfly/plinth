@@ -45,14 +45,13 @@ function Dock(props) {
     },
     load: (name) => {
       const APIs = stage.getAPIs();
-      //stage.clear();
+
       stage.set([<Error data={`Loading`} key={props.fresh}/>],true,true);
       setTimeout(()=>{
         Preter(name, APIs, stage, {unique:props.fresh,remove:true}, (list) => {
-          //stage.clear();
           stage.set(list,true,true);
         });
-      },200);
+      },500);
     },
 
     showDialog: (router) => {

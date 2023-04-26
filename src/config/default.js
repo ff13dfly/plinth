@@ -16,8 +16,9 @@ exports.Config = {
         setting:true,
     },
     map:{
-        favs:"fav_queue",
-        data:"fav_map",
+        favs:"plinth_fav_queue",
+        data:"plinth_fav_map",
+        accounts:"plinth_account_list",
     },
     //network interaction
     node:"ws://127.0.0.1:9944",

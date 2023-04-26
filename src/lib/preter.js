@@ -33,16 +33,15 @@ const Preter={
           "history":anchorJS.history,
           "owner":anchorJS.owner,
           "subcribe":anchorJS.subcribe,
-          "block":anchorJS.block,
+          //"block":anchorJS.block,
         },
       }
-      
+
       easyProtocol.run(linker,eAPI,(easy)=>{
-        console.log(easy);
-        list.push(<Overview anchor={anchor} stage={stage} key={ukey}/>);
-        list.push(<Detail anchor={anchor} key={ukey}/>);
-        list.push(<Raw anchor={anchor} key={ukey}/>);
-        list.push(<History anchor={anchor} key={ukey}/>);
+        list.push(<Overview anchor={anchor} easy={easy} stage={stage} key={ukey}/>);
+        list.push(<Detail anchor={anchor} easy={easy} key={ukey}/>);
+        list.push(<History anchor={anchor} easy={easy} key={ukey}/>);
+        list.push(<Raw anchor={anchor} easy={easy} key={ukey}/>);
         return ck && ck(list);
       });
 

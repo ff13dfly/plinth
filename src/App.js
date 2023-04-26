@@ -9,7 +9,6 @@ import Page from './structure/page';
 import Footer from './structure/footer';
 import Dialog from './structure/dialog';
 import Search from './structure/search';
-import Info from './component/info';
 
 import { Config } from './config/default.js';
 

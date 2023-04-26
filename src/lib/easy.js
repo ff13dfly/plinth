@@ -194,7 +194,7 @@ const self={
                         if(done[lib]) continue;
                         if(complex[lib]){
                             const cqueue=self.getComplexOrder(lib,map);
-                            console.log(`${lib}:${JSON.stringify(cqueue)}`)
+                            //console.log(`${lib}:${JSON.stringify(cqueue)}`)
                             for(let j=0;j<cqueue.length;j++){
                                 const clib=cqueue[j];
                                 if(done[clib]) continue;

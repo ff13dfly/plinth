@@ -1,10 +1,12 @@
 import { Row, Col, Button } from 'react-bootstrap';
-//import { useReducer} from 'react';
 import STORAGE from '../lib/storage.js';
 
-function Overview(props) {
+import CApp from './capp.js';
 
+function Overview(props) {
+  const stage=props.stage;
   const anchor=props.anchor;
+  const easy=props.easy;
 
   const list=STORAGE.getQueue("favs");
 
@@ -18,38 +20,51 @@ function Overview(props) {
       }else{
         STORAGE.footQueue("favs",name);
       }
-      if(props.stage) props.stage.force();
+      stage.force();
     },
     remove:(name)=>{
       const nlist=[];
       for(let i=0;i<list.length;i++) if(list[i]!==name) nlist.push(list[i]);
       STORAGE.setKey("favs",nlist);
-
-      if(props.stage) props.stage.force();
+      stage.force();
     },
 
     inArray:(key,arr)=>{
       for(let i=0;i<arr.length;i++) if(arr[i]===key) return true;
       return false;
     },
+    run:()=>{
+      console.log(easy);
+      
+      //FIXME need to create a sandbox for cApp. Using `new Function with`.
+
+      stage.set(<CApp 
+        loading="Running..." 
+        id="cApp_container" 
+        app={easy.code}
+        libs={easy.libs}
+      />,true,true);
+    },
   };
 
   return (
     <Row>
-      <Col lg={8} className="pt-2" >{anchor.name}</Col>
+      <Col lg={8} className="pt-2" ><h2>{anchor.name}</h2></Col>
       <Col lg={2} className="pt-2 text-end">
-        <Button size="lg" variant="primary" onClick={()=>{
+        <Button size="md" variant="primary" onClick={()=>{
           self.add(anchor.name);
         }} hidden={self.inArray(anchor.name,list)}>Fav</Button>
-        <Button size="lg" variant="primary" onClick={()=>{
+        <Button size="md" variant="primary" onClick={()=>{
           self.remove(anchor.name);
         }} hidden={!self.inArray(anchor.name,list)}>Unfav</Button>
       </Col>
       <Col lg={2} className="pt-2 text-end">
         <Button 
-          size="lg" 
+          size="md" 
           variant="primary" 
-          onClick={()=>{}} 
+          onClick={()=>{
+            self.run();
+          }} 
           disabled={
             (anchor.protocol && anchor.protocol.type==="app") || (anchor.protocol && anchor.protocol.call)?false:true}
         >Run</Button>
