@@ -18,15 +18,15 @@ const Preter={
     anchorJS.search(name,(anchor)=>{
       const ukey=!cfg.unique?0:cfg.unique;
       if(anchor===false){
-        list.push(<Error data={`No such anchor "${name}"`}  key={ukey}/>);
-        if(cfg.remove) list.push(<Remove name={name} stage={stage} key={ukey}/>);
+        list.push(<Error data={`No such anchor "${name}"`}  fresh={ukey}/>);
+        if(cfg.remove) list.push(<Remove name={name} stage={stage} fresh={ukey}/>);
         return ck && ck(list);
       }
 
-      list.push(<Overview name={name} stage={stage} key={ukey}/>);
-      list.push(<Detail anchor={anchor} key={ukey}/>);
-      list.push(<Raw anchor={anchor} key={ukey}/>);
-      list.push(<History anchor={anchor} key={ukey}/>);
+      list.push(<Overview name={name} stage={stage} fresh={ukey}/>);
+      list.push(<Detail anchor={anchor} fresh={ukey}/>);
+      list.push(<Raw anchor={anchor} fresh={ukey}/>);
+      list.push(<History anchor={anchor} fresh={ukey}/>);
       return ck && ck(list);
     });
   },

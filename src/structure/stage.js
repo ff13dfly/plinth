@@ -3,8 +3,10 @@ import { useEffect} from 'react';
 
 function Stage(props) {
   const content=props.content;
+
   useEffect(() => {
   }, []);
+  
   return (
     <Container className='vh-100 pt-2'>
       <Row>

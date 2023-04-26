@@ -1,5 +1,5 @@
 import { Row, Col, Form } from 'react-bootstrap';
-import { useEffect,useState} from 'react';
+import { useEffect} from 'react';
 
 function Raw(props) {
   //let [info,setInfo]=useState('');

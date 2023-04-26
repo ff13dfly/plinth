@@ -9,6 +9,7 @@ import Page from './structure/page';
 import Footer from './structure/footer';
 import Dialog from './structure/dialog';
 import Search from './structure/search';
+import Info from './component/info';
 
 import { Config } from './config/default.js';
 
@@ -19,14 +20,19 @@ import { easyRun } from "./lib/easy";
 
 import STORAGE from './lib/storage';
 
-import Iframe from './component/iframe.js';
+//import Iframe from './component/iframe.js'; //no use.
 
 //https://react-bootstrap.github.io/components/badge/
+
+let  key_dock=0;
+let  key_search=0;
+let  key_dancer=0;
 
 function App() {
   //init actions.
   STORAGE.setMap(Config.map);
   let [info,setInfo]=useState("");
+  //force fresh vars.
 
   //Common APIs
   let API={
@@ -59,9 +65,6 @@ function App() {
   };
 
   //Stage actions
-  let [key_dock, setKeyDock]=useState(0);
-  let [key_search,setKeySearch]=useState(0);
-  let [key_dancer,setKeyDancer]=useState(0);
   let [stageList,setStageList]=useState([]);
   let [dancer,setDancer]=useState(<Stage content={stageList} key={key_dancer}/>);
   const stage={
@@ -84,10 +87,11 @@ function App() {
       return API;
     },
     force:()=>{
-      console.log(`Force fresh`);
-      setKeyDock(key_dock+1);
-      setKeySearch(key_search+1);
-      setKeyDancer(key_dancer+1);
+      //console.log(`Force fresh`);
+      //console.log(`Dock:${key_dock},Search:${key_search},Dancer:${key_dancer}.`)
+      key_dock++;
+      key_search++;
+      key_dancer++;
       stage.render();
     },
   }
@@ -131,20 +135,20 @@ function App() {
 
   const test={
     iframe:()=>{
-      const url_git="https://github.com/ff13dfly";
-      const url_free="https://freesaying.net";
-      const url_vbw="http://localhost/world/web";
-      const url_market="https://www.binance.com/zh-CN/trade/GLMR_USDT?theme=dark&type=spot";
-      const url_google="https://google.com";
-      stage.clear();
-      stage.set(<Iframe url={url_google}/>);
-      stage.render();
+      // const url_git="https://github.com/ff13dfly";
+      // const url_free="https://freesaying.net";
+      // const url_vbw="http://localhost/world/web";
+      // const url_market="https://www.binance.com/zh-CN/trade/GLMR_USDT?theme=dark&type=spot";
+      // const url_google="https://google.com";
+      // stage.clear();
+      // stage.set(<Iframe url={url_google}/>);
+      // stage.render();
     },
   }
 
   useEffect(() => {
     prepare(Config.node,(res)=>{
-      console.log('here');
+      //console.log('here');
       if(API.polkadot!==null){
         anchorJS.block((block,hash)=>{
           setInfo(`Last Finalized ${block}`);
@@ -171,7 +175,9 @@ function App() {
               <Col md={6} lg={6} xl={6} xxl={6}  className="pt-2">
                 <Search stage={stage} key={key_search}/>
               </Col>
-              <Col md={4} lg={4} xl={4} xxl={4}  className="pt-3 text-end">{info}</Col>
+              <Col md={4} lg={4} xl={4} xxl={4}  className="pt-3 text-end">
+              {info}
+              </Col>
             </Row>
             {dancer}
           </Col>

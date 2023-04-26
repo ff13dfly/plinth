@@ -19,7 +19,7 @@ function Overview(props) {
         STORAGE.footQueue("favs",name);
       }
       if(props.stage) props.stage.force();
-      setTimeout(forceUpdate,50);
+      //setTimeout(forceUpdate,50);
     },
     remove:(name)=>{
       const nlist=[];
@@ -27,7 +27,7 @@ function Overview(props) {
       STORAGE.setKey("favs",nlist);
 
       if(props.stage) props.stage.force();
-      setTimeout(forceUpdate,50);
+      //setTimeout(forceUpdate,50);
     },
 
     inArray:(key,arr)=>{

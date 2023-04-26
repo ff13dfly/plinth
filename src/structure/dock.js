@@ -14,7 +14,7 @@ function Dock(props) {
 
   let [name, setName] = useState("");
   let [list, setList] = useState([]);
-
+  const stage = props.stage;
   const dialog = props.dialog;
   const pages = {
     setting: {
@@ -30,8 +30,7 @@ function Dock(props) {
       content: <Account />,
     },
   };
-
-  const stage = props.stage;
+  //console.log(`Force id:${ukey}`);
 
   const self = {
     onChange: (ev) => {
@@ -40,12 +39,11 @@ function Dock(props) {
     onKeydown: (ev) => {
       if (ev.key === 'Enter') {
         self.load(name);
-
       }
     },
     load: (name) => {
       const APIs = stage.getAPIs();
-      Preter(name, APIs, stage, {unique:props.key,remove:true}, (list) => {
+      Preter(name, APIs, stage, {unique:props.fresh,remove:true}, (list) => {
         stage.clear();
         stage.set(list);
         stage.render();
@@ -60,12 +58,9 @@ function Dock(props) {
     },
   };
 
-  //const list=STORAGE.getQueue(Config.map.favs);
-  //console.log(list);
-
   useEffect(() => {
-    const list = STORAGE.getQueue("favs");
-    setList(list);
+    const favs_list = STORAGE.getQueue("favs");
+    setList(favs_list);
   }, []);
 
   return (
