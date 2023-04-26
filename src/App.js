@@ -125,7 +125,22 @@ function App() {
       if(ctx !==undefined) setContent(ctx);
       if(title !==undefined) setTitle(title);
     },
+
+    
   };
+
+  const test={
+    iframe:()=>{
+      const url_git="https://github.com/ff13dfly";
+      const url_free="https://freesaying.net";
+      const url_vbw="http://localhost/world/web";
+      const url_market="https://www.binance.com/zh-CN/trade/GLMR_USDT?theme=dark&type=spot";
+      const url_google="https://google.com";
+      stage.clear();
+      stage.set(<Iframe url={url_google}/>);
+      stage.render();
+    },
+  }
 
   useEffect(() => {
     prepare(Config.node,(res)=>{
@@ -137,12 +152,7 @@ function App() {
       }
     });
 
-    const url_git="https://github.com/ff13dfly";
-    const url_free="https://freesaying.net";
-    const url_vbw="http://localhost/world/web";
-    stage.clear();
-    stage.set(<Iframe url={url_vbw}/>);
-    stage.render();
+    //test.iframe();
 
   }, []);
 
@@ -156,7 +166,7 @@ function App() {
           <Col md={10} lg={10} xl={10} xxl={10} className="pt-2" >
             <Row className='vh-75'>
               <Col md={2} lg={2} xl={2} xxl={2}  className="pt-2">
-                <img src="logo.png" alt="logo" className='img-fluid' />
+                <img src="logo.png" alt="Plinth logo" className='img-fluid' />
               </Col>
               <Col md={6} lg={6} xl={6} xxl={6}  className="pt-2">
                 <Search stage={stage} key={key_search}/>

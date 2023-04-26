@@ -45,7 +45,7 @@ function Dock(props) {
     },
     load: (name) => {
       const APIs = stage.getAPIs();
-      Preter(name, APIs, stage, props.key, (list) => {
+      Preter(name, APIs, stage, {unique:props.key,remove:true}, (list) => {
         stage.clear();
         stage.set(list);
         stage.render();

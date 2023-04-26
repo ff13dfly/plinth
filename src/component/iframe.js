@@ -1,4 +1,4 @@
-import { } from 'react-bootstrap';
+import { Row,Col } from 'react-bootstrap';
 import { useEffect} from 'react';
 
 function Iframe(props) {
@@ -9,7 +9,14 @@ function Iframe(props) {
   }, []);
 
   return (
-    <iframe src={props.url} frameborder="0" className='vh-100 w-100'></iframe>
+    <Row>
+      <Col lg={12} className="pt-2" >
+        {props.url}
+      </Col>
+      <Col lg={12} className="pt-2" >
+        <iframe src={props.url} frameborder="0" className='vh-100 w-100'></iframe>
+      </Col>
+    </Row>
   );
 }
 export default Iframe;

@@ -3,7 +3,6 @@ import { useEffect,useState} from 'react';
 
 import Preter from '../lib/preter.js';
 
-
 function Search(props) {
 
   let [name,setName]=useState("");
@@ -15,6 +14,7 @@ function Search(props) {
     },
     onKeydown:(ev)=>{
       if(ev.key==='Enter'){
+        //previous=name;
         self.load(name);
       }
     },
@@ -26,7 +26,7 @@ function Search(props) {
         return false;
       }
       const APIs=stage.getAPIs();
-      Preter(cname,APIs,stage,props.key,(list)=>{
+      Preter(cname,APIs,stage,{unique:props.key},(list)=>{
         stage.clear();
         stage.set(list);
         stage.render();
@@ -45,6 +45,7 @@ function Search(props) {
       placeholder="Anchor name..." 
       onChange={(ev) => { self.onChange(ev) }} 
       onKeyDown={(ev)=>{self.onKeydown(ev)}}
+      //value={!previous?"":previous}
     />
   );
 }
