@@ -68,12 +68,14 @@ function App() {
   let [stageList,setStageList]=useState([]);
   let [dancer,setDancer]=useState(<Stage content={stageList} key={key_dancer}/>);
   const stage={
-    set:(view)=>{
+    set:(view,fresh,clear)=>{
+      if(clear) stageList=[];
       if(Array.isArray(view)){
         for(let i=0;i<view.length;i++)stageList.push(view[i]);
       }else{
         stageList.push(view);
       }
+      if(fresh) stage.render();
     },
     render:()=>{
       setDancer(<Stage content={stageList} key={key_dancer}/>);

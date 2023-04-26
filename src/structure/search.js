@@ -27,9 +27,9 @@ function Search(props) {
       }
       const APIs=stage.getAPIs();
       Preter(cname,APIs,stage,{unique:props.fresh},(list)=>{
-        stage.clear();
-        stage.set(list);
-        stage.render();
+        //stage.clear();
+        stage.set(list,true,true);
+        //stage.render();
       });
     },
   };

@@ -1,10 +1,10 @@
 import { Row, Col, Button } from 'react-bootstrap';
-import { useReducer} from 'react';
+//import { useReducer} from 'react';
 import STORAGE from '../lib/storage.js';
 
 function Overview(props) {
 
-  const [ _ , forceUpdate] = useReducer(x => x + 1, 0);
+  const anchor=props.anchor;
 
   const list=STORAGE.getQueue("favs");
 
@@ -19,7 +19,6 @@ function Overview(props) {
         STORAGE.footQueue("favs",name);
       }
       if(props.stage) props.stage.force();
-      //setTimeout(forceUpdate,50);
     },
     remove:(name)=>{
       const nlist=[];
@@ -27,7 +26,6 @@ function Overview(props) {
       STORAGE.setKey("favs",nlist);
 
       if(props.stage) props.stage.force();
-      //setTimeout(forceUpdate,50);
     },
 
     inArray:(key,arr)=>{
@@ -38,17 +36,23 @@ function Overview(props) {
 
   return (
     <Row>
-      <Col lg={8} className="pt-2" >{props.name}</Col>
+      <Col lg={8} className="pt-2" >{anchor.name}</Col>
       <Col lg={2} className="pt-2 text-end">
         <Button size="lg" variant="primary" onClick={()=>{
-          self.add(props.name);
-        }} hidden={self.inArray(props.name,list)}>Fav</Button>
+          self.add(anchor.name);
+        }} hidden={self.inArray(anchor.name,list)}>Fav</Button>
         <Button size="lg" variant="primary" onClick={()=>{
-          self.remove(props.name);
-        }} hidden={!self.inArray(props.name,list)}>Unfav</Button>
+          self.remove(anchor.name);
+        }} hidden={!self.inArray(anchor.name,list)}>Unfav</Button>
       </Col>
       <Col lg={2} className="pt-2 text-end">
-        <Button size="lg" variant="primary" onClick={()=>{}} >Run</Button>
+        <Button 
+          size="lg" 
+          variant="primary" 
+          onClick={()=>{}} 
+          disabled={
+            (anchor.protocol && anchor.protocol.type==="app") || (anchor.protocol && anchor.protocol.call)?false:true}
+        >Run</Button>
       </Col>
     </Row>
   );

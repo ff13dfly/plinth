@@ -7,6 +7,8 @@ import Setting from '../page/setting';
 import Publish from '../page/publish';
 import Account from '../page/publish';
 
+
+import Error from '../component/error.js';
 import Preter from '../lib/preter.js';
 import STORAGE from '../lib/storage.js';
 
@@ -43,11 +45,14 @@ function Dock(props) {
     },
     load: (name) => {
       const APIs = stage.getAPIs();
-      Preter(name, APIs, stage, {unique:props.fresh,remove:true}, (list) => {
-        stage.clear();
-        stage.set(list);
-        stage.render();
-      });
+      //stage.clear();
+      stage.set([<Error data={`Loading`} key={props.fresh}/>],true,true);
+      setTimeout(()=>{
+        Preter(name, APIs, stage, {unique:props.fresh,remove:true}, (list) => {
+          //stage.clear();
+          stage.set(list,true,true);
+        });
+      },200);
     },
 
     showDialog: (router) => {

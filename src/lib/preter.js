@@ -14,20 +14,38 @@ const Preter={
   auto:(name,APIs,stage,cfg,ck)=>{
     const list=[];
     const anchorJS=APIs.anchorJS;
+    const easyProtocol=APIs.easyProtocol;
 
     anchorJS.search(name,(anchor)=>{
       const ukey=!cfg.unique?0:cfg.unique;
       if(anchor===false){
-        list.push(<Error data={`No such anchor "${name}"`}  fresh={ukey}/>);
-        if(cfg.remove) list.push(<Remove name={name} stage={stage} fresh={ukey}/>);
+        list.push(<Error data={`No such anchor "${name}"`}  key={ukey}/>);
+        if(cfg.remove) list.push(<Remove name={name} stage={stage} key={ukey}/>);
         return ck && ck(list);
       }
 
-      list.push(<Overview name={name} stage={stage} fresh={ukey}/>);
-      list.push(<Detail anchor={anchor} fresh={ukey}/>);
-      list.push(<Raw anchor={anchor} fresh={ukey}/>);
-      list.push(<History anchor={anchor} fresh={ukey}/>);
-      return ck && ck(list);
+      //console.log(APIs);
+      const linker=`anchor://${name}`;
+      const eAPI={
+        common:{
+          "latest":anchorJS.latest,
+          "target":anchorJS.target,
+          "history":anchorJS.history,
+          "owner":anchorJS.owner,
+          "subcribe":anchorJS.subcribe,
+          "block":anchorJS.block,
+        },
+      }
+      
+      easyProtocol.run(linker,eAPI,(easy)=>{
+        console.log(easy);
+        list.push(<Overview anchor={anchor} stage={stage} key={ukey}/>);
+        list.push(<Detail anchor={anchor} key={ukey}/>);
+        list.push(<Raw anchor={anchor} key={ukey}/>);
+        list.push(<History anchor={anchor} key={ukey}/>);
+        return ck && ck(list);
+      });
+
     });
   },
 
