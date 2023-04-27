@@ -47,8 +47,13 @@ function Dock(props) {
       const APIs = stage.getAPIs();
 
       stage.set([<Error data={`Loading`} key={props.fresh}/>],true,true);
+
+      const interaction={
+        stage:stage,
+        dialog:dialog,
+      }
       setTimeout(()=>{
-        Preter(name, APIs, stage, {unique:props.fresh,remove:true}, (list) => {
+        Preter(name, APIs, interaction, {unique:props.fresh,remove:true}, (list) => {
           stage.set(list,true,true);
         });
       },500);

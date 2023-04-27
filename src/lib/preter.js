@@ -11,10 +11,13 @@ const params={
 };
 
 const Preter={
-  auto:(name,APIs,stage,cfg,ck)=>{
+  auto:(name,APIs,interaction,cfg,ck)=>{
     const list=[];
     const anchorJS=APIs.anchorJS;
     const easyProtocol=APIs.easyProtocol;
+
+    const stage=interaction.stage;
+    const dialog=interaction.dialog;
 
     anchorJS.search(name,(anchor)=>{
       const ukey=!cfg.unique?0:cfg.unique;
@@ -40,7 +43,7 @@ const Preter={
       easyProtocol.run(linker,eAPI,(easy)=>{
         list.push(<Overview anchor={anchor} easy={easy} stage={stage} key={ukey}/>);
         list.push(<Detail anchor={anchor} easy={easy} key={ukey}/>);
-        list.push(<History anchor={anchor} easy={easy} key={ukey}/>);
+        list.push(<History anchor={anchor} easy={easy} key={ukey} dialog={dialog} history={anchorJS.history}/>);
         list.push(<Raw anchor={anchor} easy={easy} key={ukey}/>);
         return ck && ck(list);
       });

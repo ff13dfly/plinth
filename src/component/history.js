@@ -1,9 +1,23 @@
 import { Row, Col, Button,Badge } from 'react-bootstrap';
-import { useEffect,useState} from 'react';
+import { useEffect} from 'react';
+
+import Version from './version.js';
 
 function History(props) {
   //let [info,setInfo]=useState('');
   const anchor=props.anchor;
+  const dialog=props.dialog;
+
+  const self={
+    getHistory:(name)=>{
+      props.history(name,(his)=>{
+        //console.log(dialog);
+        dialog.set((<Version  list={his} />), "");
+        dialog.show();
+      });
+     
+    },
+  }
 
   useEffect(() => {
     //setInfo('Done');
@@ -17,7 +31,9 @@ function History(props) {
         <Badge bg="info" className="mr-1">owner:{anchor.owner}</Badge>{' '}
       </Col>
       <Col lg={4} className="pt-2 text-end" >
-        <Button size="md" variant="light" onClick={()=>{}} >History</Button>
+        <Button size="md" variant="light" onClick={()=>{
+          self.getHistory(anchor.name);
+        }} >History</Button>
       </Col>
     </Row>
   );

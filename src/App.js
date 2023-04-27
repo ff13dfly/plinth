@@ -98,19 +98,13 @@ function App() {
   }
 
   //page actions
-  let [page,setPage]=useState('');
-  const interaction={
-    showPage:(target)=>{
+  let [viewer,setViewer]=useState('');
+  const page={
+    show:(target)=>{
       console.log(target);
-      setPage((<Page router={target} show={true} close={interaction.closePage}/>));
+      setViewer((<Page router={target} show={true} close={dialog.closePage}/>));
     },
-    closePage:()=>{
-
-    },
-    showDialog:(title,ctx)=>{
-
-    },
-    hideDailog:()=>{
+    close:()=>{
 
     },
   };
@@ -130,8 +124,6 @@ function App() {
       if(ctx !==undefined) setContent(ctx);
       if(title !==undefined) setTitle(title);
     },
-
-    
   };
 
   const test={
@@ -163,8 +155,8 @@ function App() {
 
   return (
     <Container>
-      <Header interaction={interaction}/>
-      {page}
+      <Header page={page}/>
+      {viewer}
       <Container id={Config.ID.stage} fluid>
         <Row>
           <Col md={12} lg={12} xl={12} xxl={12} className="pt-2" ></Col>
@@ -187,7 +179,7 @@ function App() {
           </Col>
         </Row>
       </Container>
-      <Footer interaction={interaction} />
+      <Footer page={page} />
       <Dialog show={showDialog} funs={dialog} title={title} content={content}/>
     </Container>
   );

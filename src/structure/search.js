@@ -7,7 +7,8 @@ function Search(props) {
 
   let [name,setName]=useState("");
   const stage=props.stage;
-
+  const dialog = props.dialog;
+  
   const self={
     onChange:(ev)=>{
       setName(ev.target.value);
@@ -26,7 +27,11 @@ function Search(props) {
         return false;
       }
       const APIs=stage.getAPIs();
-      Preter(cname,APIs,stage,{unique:props.fresh},(list)=>{
+      const interaction={
+        stage:stage,
+        dialog:dialog,
+      }
+      Preter(cname,APIs,interaction,{unique:props.fresh},(list)=>{
         stage.set(list,true,true);
       });
     },
