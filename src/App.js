@@ -166,7 +166,7 @@ function App() {
                 <img src="logo.png" alt="Plinth logo" className='img-fluid' />
               </Col>
               <Col md={6} lg={6} xl={6} xxl={6}  className="pt-2">
-                <Search stage={stage} key={key_search}/>
+                <Search stage={stage} dialog={dialog} key={key_search}/>
               </Col>
               <Col md={4} lg={4} xl={4} xxl={4}  className="pt-3 text-end">
               {info}

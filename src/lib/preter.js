@@ -20,6 +20,7 @@ const Preter={
     const dialog=interaction.dialog;
 
     anchorJS.search(name,(anchor)=>{
+      //console.log(anchor);
       const ukey=!cfg.unique?0:cfg.unique;
       if(anchor===false){
         list.push(<Error data={`No such anchor "${name}"`}  key={ukey}/>);

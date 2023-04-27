@@ -11,6 +11,7 @@ function History(props) {
   const self={
     getHistory:(name)=>{
       props.history(name,(his)=>{
+        console.log(his);
         //console.log(dialog);
         dialog.set((<Version  list={his} />), "");
         dialog.show();
