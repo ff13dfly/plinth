@@ -1,9 +1,13 @@
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Badge, Button } from 'react-bootstrap';
+import { useReducer} from 'react';
 import STORAGE from '../lib/storage.js';
 
 import CApp from './capp.js';
 
 function Overview(props) {
+
+  const [ _ , forceUpdate] = useReducer(x => x + 1, 0);
+
   const stage=props.stage;
   const anchor=props.anchor;
   const easy=props.easy;
@@ -20,13 +24,15 @@ function Overview(props) {
       }else{
         STORAGE.footQueue("favs",name);
       }
-      stage.force();
+      stage.force({dancer:true});
+      setTimeout(forceUpdate,50);
     },
     remove:(name)=>{
       const nlist=[];
       for(let i=0;i<list.length;i++) if(list[i]!==name) nlist.push(list[i]);
       STORAGE.setKey("favs",nlist);
-      stage.force();
+      stage.force({dancer:true});
+      setTimeout(forceUpdate,50);
     },
 
     inArray:(key,arr)=>{
@@ -35,7 +41,7 @@ function Overview(props) {
     },
     run:()=>{
       console.log(easy);
-      
+
       //FIXME need to create a sandbox for cApp. Using `new Function with`.
 
       stage.set(<CApp 
@@ -49,7 +55,7 @@ function Overview(props) {
 
   return (
     <Row>
-      <Col lg={8} className="pt-2" ><h2>{anchor.name}</h2></Col>
+      <Col lg={8} className="pt-2" ><h2><Badge bg="warning">{easy.location[1]}</Badge>{'   '+anchor.name}</h2></Col>
       <Col lg={2} className="pt-2 text-end">
         <Button size="md" variant="primary" onClick={()=>{
           self.add(anchor.name);

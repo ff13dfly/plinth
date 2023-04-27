@@ -1,21 +1,21 @@
-import { Row, Col, Badge } from 'react-bootstrap';
-import { useEffect,useState} from 'react';
+import { Row, Col, Badge, Image } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 
 import Category from './category.js';
 
 function Detail(props) {
   let [list, setList] = useState([]);
 
-  const anchor=props.anchor;
-  const easy=props.easy;
+  const anchor = props.anchor;
+  const easy = props.easy;
 
 
   //let [info,setInfo]=useState('');
 
   useEffect(() => {
-    const auths=[]
-    for(var k in easy.auth){
-      auths.push([k,easy.auth[k]]);
+    const auths = []
+    for (var k in easy.auth) {
+      auths.push([k, easy.auth[k]]);
     }
     setList(auths);
   }, []);
@@ -23,19 +23,19 @@ function Detail(props) {
   return (
     <Row>
       <Col lg={4} xl={4} xxl={3} className="pt-2" >
-        <Category />
+        <Category type={easy.type} call={easy.call} />
       </Col>
       <Col lg={8} xl={8} xxl={9} className="pt-2" >
         <Row>
           <Col lg={12} className="pt-2" ><h4>Authority</h4></Col>
-          {/* {auths.map((item, index) => (
-            <Col md={12} lg={12} xl={12} xxl={12} className="pt-2">
-              <Col lg={12} className="pt-2" >{index}:{item}</Col>
-            </Col>
-          ))} */}
           {list.map((item, index) => (
-            <Col md={12} lg={12} xl={12} xxl={12} key={index}>
-              <Col lg={12} className="pt-2" >{item[0]}:<Badge bg="info">{item[1]}</Badge></Col>
+            <Col md={3} lg={3} xl={2} xxl={2} key={index} className="text-center">
+              <Image
+                src={`https://robohash.org/${item[0]}.png`}
+                rounded
+                width="100%"
+              />
+              <Badge bg="info">{item[1]===0?'~':item[1]}</Badge>
             </Col>
           ))}
         </Row>
@@ -46,7 +46,7 @@ function Detail(props) {
           <Col lg={12} className="pt-2" >Stamp: {anchor.stamp}</Col>
         </Row>
       </Col>
-      
+
     </Row>
   );
 }

@@ -87,12 +87,12 @@ function App() {
     getAPIs:()=>{   
       return API;
     },
-    force:()=>{
+    force:(skip)=>{
       //console.log(`Force fresh`);
       //console.log(`Dock:${key_dock},Search:${key_search},Dancer:${key_dancer}.`)
-      key_dock++;
-      key_search++;
-      key_dancer++;
+      if(!skip.dock)key_dock++;
+      if(!skip.search)key_search++;
+      if(!skip.dancer)key_dancer++;
       stage.render();
     },
   }

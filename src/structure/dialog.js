@@ -1,5 +1,5 @@
 import { Modal } from 'react-bootstrap';
-import { useEffect,useState} from 'react';
+import { useEffect } from 'react';
 
 function Dialog(props) {
 
@@ -17,7 +17,7 @@ function Dialog(props) {
   }, []);
 
   return (
-    <Modal show={props.show} onHide={self.hideDialog}>
+    <Modal show={props.show} size="lg" onHide={self.hideDialog}>
       <Modal.Header closeButton>
         <Modal.Title >{props.title}</Modal.Title>
       </Modal.Header>
