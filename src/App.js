@@ -113,16 +113,21 @@ function App() {
   let [showDialog,setshowDialog]=useState(false);
   let [title,setTitle]=useState('');
   let [content,setContent]=useState('');
+  let [callback,setCallback]=useState('');
   const dialog={
     show:()=>{
       setshowDialog(true);
     },
     hide:()=>{
+      setTitle('');
+      setContent('');
+      setCallback('');
       setshowDialog(false);
     },
-    set:(ctx,title)=>{
+    set:(ctx,title,fun)=>{
       if(ctx !==undefined) setContent(ctx);
       if(title !==undefined) setTitle(title);
+      if(fun!==undefined) setCallback(fun);
     },
   };
 
@@ -180,7 +185,7 @@ function App() {
         </Row>
       </Container>
       <Footer page={page} />
-      <Dialog show={showDialog} funs={dialog} title={title} content={content}/>
+      <Dialog show={showDialog} funs={dialog} title={title} content={content} callback={callback}/>
     </Container>
   );
 }

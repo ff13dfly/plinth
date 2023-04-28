@@ -4,10 +4,12 @@ import { useEffect } from 'react';
 function Dialog(props) {
 
   const funs=props.funs;
+  const callback=props.callback;
 
   const self={
     hideDialog:()=>{
-      console.log('good to go');
+      //console.log('good to go after hide function');
+      if(callback) callback();
       funs.hide();
     },
   }

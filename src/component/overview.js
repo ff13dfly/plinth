@@ -14,8 +14,8 @@ function Overview(props) {
 
   const list=STORAGE.getQueue("favs");
 
-  console.log(anchor);
-  console.log(easy);
+  //console.log(anchor);
+  //console.log(easy);
 
   const self={
     add:(name)=>{
