@@ -3,6 +3,7 @@ import { useReducer} from 'react';
 import STORAGE from '../lib/storage.js';
 
 import CApp from './capp.js';
+import Debug from './debug.js';
 
 function Overview(props) {
 
@@ -15,7 +16,7 @@ function Overview(props) {
   const list=STORAGE.getQueue("favs");
 
   //console.log(anchor);
-  //console.log(easy);
+  console.log(easy);
 
   const self={
     add:(name)=>{
@@ -77,6 +78,9 @@ function Overview(props) {
           disabled={
             (anchor.protocol && anchor.protocol.type==="app") || (anchor.protocol && anchor.protocol.call)?false:true}
         >Run</Button>
+      </Col>
+      <Col lg={12} className="pt-2">
+        { (easy.debug && !easy.debug.disabled) ? (<Debug data={easy.debug}/>): ""}
       </Col>
     </Row>
   );
