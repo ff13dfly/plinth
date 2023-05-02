@@ -2,10 +2,10 @@ import { Row, Col, Badge, Image } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 
 import Category from './category.js';
+import Trust from './trust.js';
 
 function Detail(props) {
   let [list, setList] = useState([]);
-
   const anchor = props.anchor;
   const easy = props.easy;
 
@@ -38,6 +38,12 @@ function Detail(props) {
               <Badge bg="info">{item[1]===0?'~':item[1]}</Badge>
             </Col>
           ))}
+          <Col lg={12} className="pt-2" ><h4>Trust</h4></Col>
+          
+            <Col md={12} lg={12} xl={12} xxl={12}>
+            <Trust list={easy.trust}/>
+            </Col>
+          
         </Row>
         <Row>
           <Col lg={12} className="pt-4" ><h4>Basic</h4></Col>
