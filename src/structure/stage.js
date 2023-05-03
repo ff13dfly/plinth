@@ -6,9 +6,13 @@ function Stage(props) {
 
   useEffect(() => {
   }, []);
-  
+
+  const cmap={
+    "overflowY": "scroll",
+  }
+
   return (
-    <Container className='vh-100 pt-2'>
+    <Container className='vh-100 pt-2' style={cmap}>
       <Row>
         <Col lg={3} xs={4} className="pt-2 d-block d-md-none d-lg-none d-xl-none d-xxl-none">left opts</Col>
         <Col lg={6} xs={4} className="pt-2 d-block d-md-none d-lg-none d-xl-none d-xxl-none">title</Col>
