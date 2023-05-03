@@ -32,6 +32,7 @@ function Detail(props) {
             <Col md={3} lg={3} xl={2} xxl={2} key={index} className="text-center">
               <Image
                 src={`https://robohash.org/${item[0]}.png`}
+                alt={item[0]}
                 rounded
                 width="100%"
               />

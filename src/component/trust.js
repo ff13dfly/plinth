@@ -18,7 +18,7 @@ function Trust(props) {
   return (
     <Row>
       {list.map((item, index) => (
-        <Col md={6} lg={6} xl={4} xxl={4} key={index} className="text-center">
+        <Col md={6} lg={6} xl={4} xxl={4} key={index}>
           <h3>
           <Badge bg="info">{item[0]} to {item[1]}</Badge>
           </h3>

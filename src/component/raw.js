@@ -12,13 +12,13 @@ function Raw(props) {
     <Row>
       <Col className="pt-2" >
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Anchor Raw Data</Form.Label>
+          <Form.Label>Anchor Raw Data ({props.anchor.raw.length})</Form.Label>
           <Form.Control as="textarea" rows={6} value={props.anchor.raw} disabled />
         </Form.Group>
       </Col>
       <Col className="pt-2" >
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Anchor Protocol</Form.Label>
+          <Form.Label>Anchor Protocol ({JSON.stringify(props.anchor.protocol).length})</Form.Label>
           <Form.Control as="textarea" rows={6} value={JSON.stringify(props.anchor.protocol)} disabled />
         </Form.Group>
       </Col>
