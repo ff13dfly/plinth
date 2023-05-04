@@ -5,8 +5,8 @@ import { Config } from '../config/default.js';
 
 import Setting from '../page/setting';
 import Publish from '../page/publish';
-import Account from '../page/publish';
-
+import Account from '../page/account';
+import Server from '../page/server';
 
 import Error from '../component/error.js';
 import Preter from '../lib/preter.js';
@@ -30,6 +30,10 @@ function Dock(props) {
     account: {
       title: "Account Management",
       content: <Account />,
+    },
+    server: {
+      title: "Server Management",
+      content: <Server />,
     },
   };
   //console.log(`Force id:${ukey}`);
@@ -96,10 +100,16 @@ function Dock(props) {
               self.showDialog("account");
             }} >Account</Button>
           </Col>
+          
           <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
             <Button size="sm" variant="light" onClick={() => {
               self.showDialog("publish");
             }} >Publish</Button>
+          </Col>
+          <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
+            <Button size="sm" variant="light" onClick={() => {
+              self.showDialog("server");
+            }} >Server</Button>
           </Col>
           <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
             <Button size="sm" variant="light" onClick={() => {

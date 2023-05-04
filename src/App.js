@@ -145,6 +145,7 @@ function App() {
   }
 
   useEffect(() => {
+    //console.log(`App entry console.`);
     prepare(Config.node,(res)=>{
       //console.log('here');
       if(API.polkadot!==null){
@@ -153,9 +154,6 @@ function App() {
         },true);
       }
     });
-
-    //test.iframe();
-
   }, []);
 
   return (

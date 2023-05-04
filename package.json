@@ -2,6 +2,7 @@
   "name": "plinth",
   "version": "1.0.0",
   "private": true,
+  "homepage":".",
   "dependencies": {
     "@polkadot/api": "^9.14.1",
     "@testing-library/jest-dom": "^5.16.5",
