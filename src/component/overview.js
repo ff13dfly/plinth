@@ -16,7 +16,7 @@ function Overview(props) {
   const list=STORAGE.getQueue("favs");
 
   //console.log(anchor);
-  //console.log(easy);
+  console.log(easy);
 
   const self={
     add:(name)=>{
@@ -44,15 +44,10 @@ function Overview(props) {
       return false;
     },
     run:()=>{
-      //FIXME need to create a sandbox for cApp. Using `new Function with`.
-
       stage.set(<CApp 
         loading="Running..." 
         id="cApp_container"
         easy={easy}
-        // from={}
-        //app={easy.code}
-        //libs={easy.libs}
       />,true,true);
     },
   };

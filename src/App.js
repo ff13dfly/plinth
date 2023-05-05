@@ -165,10 +165,10 @@ function App() {
           <Col md={12} lg={12} xl={12} xxl={12} className="pt-2" ></Col>
           <Col md={10} lg={10} xl={10} xxl={10} className="pt-2" >
             <Row className='vh-75'>
-              <Col md={2} lg={2} xl={2} xxl={2}  className="pt-2">
+              <Col xs={4} md={3} lg={2} xl={2} xxl={2}  className="pt-2">
                 <img src="logo.png" alt="Plinth logo" className='img-fluid' />
               </Col>
-              <Col md={6} lg={6} xl={6} xxl={6}  className="pt-2">
+              <Col xs={8} md={5} lg={6} xl={6} xxl={6}  className="pt-2">
                 <Search stage={stage} dialog={dialog} key={key_search}/>
               </Col>
               <Col md={4} lg={4} xl={4} xxl={4}  className="pt-3 text-end">
