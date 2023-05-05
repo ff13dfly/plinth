@@ -20,86 +20,69 @@ function CApp(props) {
     easy:easyRun,
   }
 
-  const loadCSS=(code) => {
-		var head = document.getElementsByTagName('head')[0];
-		var style = document.createElement('style');
-		var cmap = document.createTextNode(code);
-		style.appendChild(cmap);
-		head.appendChild(style);
-		return true;
-	};
-  
-  //console.log(props.id);
-  //FIXME, lib of JS need to `eval`
+  // const loadCSS=(code) => {
+	// 	var head = document.getElementsByTagName('head')[0];
+	// 	var style = document.createElement('style');
+	// 	var cmap = document.createTextNode(code);
+	// 	style.appendChild(cmap);
+	// 	head.appendChild(style);
+	// 	return true;
+	// };
 
-  useEffect(() => {
-    //console.log(easy);
-    if(easy.libs && easy.libs.js){
+  const self={
+    loadReact:(js,css)=>{
+      const frame = document.getElementById('react_frame');
+      const iwind = frame.contentWindow;
 
-      var frame = document.getElementById('react_frame');
-      var iwind = frame.contentWindow;         
-      //console.log(iwind);
-      //iwind.appendChild();
-      //iwind.eval("console.log('hello')");
-      //frame.contentWindow.eval(easy.libs.js);
-
-      var ele=document.createElement("div");
+      const ele=document.createElement("div");
       ele.id = "root";
       iwind.document.body.appendChild(ele);
-      iwind.eval(easy.libs.js);
+      iwind.eval(js);
 
-      var head = iwind.document.getElementsByTagName('head')[0];
-		  var style = iwind.document.createElement('style');
-		  var cmap = iwind.document.createTextNode(easy.libs.css);
+      const head = iwind.document.getElementsByTagName('head')[0];
+		  const style = iwind.document.createElement('style');
+		  const cmap = iwind.document.createTextNode(css);
 		  style.appendChild(cmap);
 		  head.appendChild(style);
-
-
-      // var ifrDoc = ifr.contentWindow || ifr.contentDocument;
-      // if (ifrDoc.document) ifrDoc = ifrDoc.document;
-
-      // var elem = ifrDoc.createElement("div");
-      //     elem.innerHTML = "Demo Box";
-      //     elem.style.width = "50px";
-      //     elem.style.height = "50px";
-      //     elem.style.position = "absolute";
-      //     elem.style.background = "red";
-
-      // ifrDoc.body.appendChild(elem);
+    },
+    loadcApp:(code,js,css)=>{
       
-      //eval(easy.libs.js);
-      //loadCSS(easy.libs.css);
-    }
+    },
+  }
 
-    try {
-      const pa='API',pb='input',pc='errs';
-
-      //!important, closure function to isolate the namespace.
-      //!important
-      const str=`;(function(${pa},${pb},${pc}){${easy.code}})(${pa},${pb},${pc})`;
-      const cApp = new Function(pa, pb, pc,str);
-      if (cApp){
-        setInfo("");
-        cApp(APIs,input, easy.error);
+  useEffect(() => {
+    const tg=easy.location;
+    const anchor=easy.data[`${tg[0]}_${tg[1]}`]
+    if(anchor && anchor.protocol && anchor.protocol.tpl==="react"){
+      
+      self.loadReact(easy.libs.js,easy.libs.css);
+    }else{
+      try {
+        //!important, closure function to isolate the namespace.
+        const pa='API',pb='input',pc='errs';
+        const str=`;(function(${pa},${pb},${pc}){${easy.code}})(${pa},${pb},${pc})`;
+        const cApp = new Function(pa, pb, pc,str);
+        if (cApp){
+          setInfo("");
+          cApp(APIs,input, easy.error);
+        }
+      } catch (error) {
+        console.log(error);
+        setInfo(JSON.stringify({error}));
       }
-    } catch (error) {
-      console.log(error);
-      setInfo(JSON.stringify({error}));
     }
   }, []);
 
-  const map='#test_css{color:#FF0000}';
-
+  //const map='#test_css{color:#FF0000}';
+  const h=840;
+  const cmap={
+    "height":h+"px",
+  }
   return (
+    
     <div>
-      <style>{easy.libs && easy.libs.css?easy.libs.css:''}
-        {map}
-      </style>
-      <div id="root"></div>
-      <iframe src="" id="react_frame"></iframe>
-      <div id="test_css">Hello world</div>
-      <script>{easy.libs && easy.libs.js?easy.libs.js:''}</script>
-      <div id={props.id}>{info}</div>
+      <style>{easy.libs && easy.libs.css?easy.libs.css:''}</style>
+      <iframe id="react_frame" className="w-100" style={cmap}></iframe>
     </div>
   );
 }

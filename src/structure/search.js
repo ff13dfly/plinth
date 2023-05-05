@@ -48,7 +48,6 @@ function Search(props) {
       placeholder="Anchor name..." 
       onChange={(ev) => { self.onChange(ev) }} 
       onKeyDown={(ev)=>{self.onKeydown(ev)}}
-      //value={!previous?"":previous}
     />
   );
 }

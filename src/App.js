@@ -19,8 +19,6 @@ import { easyRun } from "./lib/easy";
 
 import STORAGE from './lib/storage';
 
-//import Iframe from './component/iframe.js'; //no use.
-
 //https://react-bootstrap.github.io/components/badge/
 
 let  key_dock=0;
@@ -131,26 +129,11 @@ function App() {
     },
   };
 
-  const test={
-    iframe:()=>{
-      // const url_git="https://github.com/ff13dfly";
-      // const url_free="https://freesaying.net";
-      // const url_vbw="http://localhost/world/web";
-      // const url_market="https://www.binance.com/zh-CN/trade/GLMR_USDT?theme=dark&type=spot";
-      // const url_google="https://google.com";
-      // stage.clear();
-      // stage.set(<Iframe url={url_google}/>);
-      // stage.render();
-    },
-  }
-
   useEffect(() => {
-    //console.log(`App entry console.`);
     prepare(Config.node,(res)=>{
-      //console.log('here');
       if(API.polkadot!==null){
         anchorJS.block((block,hash)=>{
-          setInfo(`Last Finalized ${block}`);
+          setInfo(`Lastest Finalized ${block.toLocaleString()}`);
         },true);
       }
     });
