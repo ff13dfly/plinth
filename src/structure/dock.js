@@ -94,7 +94,7 @@ function Dock(props) {
         ))}
       </Row>
       <div className="position-absolute bottom-0 start-0 pb-4 vh-25 w-100 d-grid gap-2">
-        <Row>
+        <Row className="pb-4">
           <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
             <Button size="sm" variant="light" onClick={() => {
               self.showDialog("account");

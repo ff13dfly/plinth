@@ -12,14 +12,23 @@ import Search from './structure/search';
 
 import { Config } from './config/default.js';
 
-import { ApiPromise, WsProvider } from '@polkadot/api';
-import { Keyring } from '@polkadot/api';
-import { anchorJS } from "./lib/anchor";
+//import { ApiPromise, WsProvider } from '@polkadot/api';
+//import { Keyring } from '@polkadot/api';
+//import { anchorJS } from "./lib/anchor";
 import { easyRun } from "./lib/easy";
 
 import STORAGE from './lib/storage';
-
+const anchorJS = window.anchorJS;
+const dot=window.Polkadot;
+const ApiPromise=dot.ApiPromise;
+const WsProvider=dot.WsProvider;
+const Keyring=dot.Keyring;
+//const anchorJS=process.env.REACT_APP_ANCHORJS;
+console.log(process.env.REACT_APP_ANCHORJS);
 //https://react-bootstrap.github.io/components/badge/
+
+//add global vars
+//https://create-react-app.dev/docs/adding-custom-environment-variables/
 
 let  key_dock=0;
 let  key_search=0;
@@ -46,7 +55,7 @@ function App() {
     try {
         //console.log({node});
         const provider = new WsProvider(node);
-        ApiPromise.create({ provider: provider }).then((pokAPI) => {
+        ApiPromise.create({ provider: provider,noInitWarn: true }).then((pokAPI) => {
             
             API.polkadot=pokAPI;
             if(!anchorJS.set(pokAPI)){
@@ -150,6 +159,7 @@ function App() {
             <Row className='vh-75'>
               <Col xs={4} md={3} lg={2} xl={2} xxl={2}  className="pt-2">
                 <img src="logo.png" alt="Plinth logo" className='img-fluid' />
+                <small className='text-secondary'>Your Web3.0</small>
               </Col>
               <Col xs={8} md={5} lg={6} xl={6} xxl={6}  className="pt-2">
                 <Search stage={stage} dialog={dialog} key={key_search}/>
