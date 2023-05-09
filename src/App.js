@@ -12,19 +12,17 @@ import Search from './structure/search';
 
 import { Config } from './config/default.js';
 
-//import { ApiPromise, WsProvider } from '@polkadot/api';
-//import { Keyring } from '@polkadot/api';
-//import { anchorJS } from "./lib/anchor";
-import { easyRun } from "./lib/easy";
-
+//import { easyRun } from "./lib/easy";
 import STORAGE from './lib/storage';
+
 const anchorJS = window.anchorJS;
 const dot=window.Polkadot;
+const easy=window.easy;
 const ApiPromise=dot.ApiPromise;
 const WsProvider=dot.WsProvider;
 const Keyring=dot.Keyring;
-//const anchorJS=process.env.REACT_APP_ANCHORJS;
-console.log(process.env.REACT_APP_ANCHORJS);
+const easyRun=easy.easyRun;
+
 //https://react-bootstrap.github.io/components/badge/
 
 //add global vars
@@ -141,8 +139,8 @@ function App() {
   useEffect(() => {
     prepare(Config.node,(res)=>{
       if(API.polkadot!==null){
-        anchorJS.block((block,hash)=>{
-          setInfo(`Lastest Finalized ${block.toLocaleString()}`);
+        anchorJS.subcribe((list,block)=>{
+          setInfo(`Lastest Finalized : ${block.toLocaleString()}`);
         },true);
       }
     });

@@ -8,6 +8,7 @@
 const map={};
 const persist={};		//通过支付串化，进行数据保存
 
+//FIXME, storage is not safe for iframe
 const STORAGE={
 	dump:()=>{
 		return {

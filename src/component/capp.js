@@ -1,7 +1,7 @@
 //import { Row, Col } from 'react-bootstrap';
 import { useState,useEffect} from 'react';
-import { anchorJS } from "../lib/anchor";
-import { easyRun } from "../lib/easy";
+//import { anchorJS } from "../lib/anchor";
+//import { easyRun } from "../lib/easy";
 
 function CApp(props) {
   let [info,setInfo]=useState(props.loading?props.loading:"Loading...");
@@ -15,9 +15,10 @@ function CApp(props) {
     params:{},
   };
 
+  const easyProtocol=window.easy;
   const APIs={
-    anchorJS:anchorJS,
-    easy:easyRun,
+    anchorJS:window.anchorJS,
+    easy:easyProtocol.easyRun,
   }
 
   // const loadCSS=(code) => {
@@ -30,14 +31,15 @@ function CApp(props) {
 	// };
 
   const self={
-    loadReact:(js,css)=>{
+    loadReact:(js,css,code)=>{
+      console.log(code)
       const frame = document.getElementById('react_frame');
       const iwind = frame.contentWindow;
 
       const ele=document.createElement("div");
       ele.id = "root";
       iwind.document.body.appendChild(ele);
-      iwind.eval(js);
+      iwind.eval(js+code);
 
       const head = iwind.document.getElementsByTagName('head')[0];
 		  const style = iwind.document.createElement('style');
@@ -55,7 +57,7 @@ function CApp(props) {
     const anchor=easy.data[`${tg[0]}_${tg[1]}`]
     if(anchor && anchor.protocol && anchor.protocol.tpl==="react"){
       
-      self.loadReact(easy.libs.js,easy.libs.css);
+      self.loadReact(easy.libs.js,easy.libs.css,easy.code);
     }else{
       try {
         //!important, closure function to isolate the namespace.

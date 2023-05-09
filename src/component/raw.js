@@ -8,11 +8,13 @@ function Raw(props) {
     //setInfo('Done');
   }, []);
 
+  const len_raw=props.anchor.raw!==null?props.anchor.raw.length:0;
+
   return (
     <Row className="pb-4">
       <Col className="pt-2 mb-2">
         <Form.Group className="mb-4" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Anchor Raw Data ({props.anchor.raw!==null?props.anchor.raw.length:0})</Form.Label>
+          <Form.Label>Anchor Raw Data ({len_raw.toLocaleString()})</Form.Label>
           <Form.Control as="textarea" rows={6} value={props.anchor.raw!==null?props.anchor.raw:""} disabled />
         </Form.Group>
       </Col>
