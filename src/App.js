@@ -1,6 +1,7 @@
 
 import { Container,Row,Col } from 'react-bootstrap';
 import { useState,useEffect } from 'react';
+//import axios from 'axios';
 
 import Header from './structure/header';
 import Stage from './structure/stage';
@@ -15,9 +16,9 @@ import { Config } from './config/default.js';
 //import { easyRun } from "./lib/easy";
 import STORAGE from './lib/storage';
 
-const anchorJS = window.anchorJS;
+const anchorJS = window.AnchorJS;
 const dot=window.Polkadot;
-const easy=window.easy;
+const easy=window.Easy;
 const ApiPromise=dot.ApiPromise;
 const WsProvider=dot.WsProvider;
 const Keyring=dot.Keyring;
@@ -95,9 +96,9 @@ function App() {
     force:(skip)=>{
       //console.log(`Force fresh`);
       //console.log(`Dock:${key_dock},Search:${key_search},Dancer:${key_dancer}.`)
-      if(!skip.dock)key_dock++;
-      if(!skip.search)key_search++;
-      if(!skip.dancer)key_dancer++;
+      if(!skip || !skip.dock)key_dock++;
+      if(!skip || !skip.search)key_search++;
+      if(!skip || !skip.dancer)key_dancer++;
       stage.render();
     },
   }
@@ -136,6 +137,46 @@ function App() {
     },
   };
 
+  const test={
+    jsonp:(server,data,ck)=>{
+      var uri=server+'?';
+      if(data.id) uri += `id=${data.id}&`;
+      if(data.method) uri += `method=${data.method}&`;
+      for(var k in data.params) uri += `${k}=${data.params[k]}&`;
+      uri+='callback=?';
+      console.log(`${uri}`);
+      window.$.getJSON({type:'get',url:uri,async:false,success:function(res){
+          return ck && ck(res);
+      }});
+    },
+    axios:()=>{
+      //const axios = require('axios').default;
+      // const URL="http://127.0.0.1:8001";
+      // const cfg={
+      //   method: 'post',
+      //   url: URL,
+      //   data: {
+      //       "jsonrpc":"2.0",
+      //       "method":"apart",
+      //       "params":{
+      //           "name":"node_me"
+      //       },
+      //       "id":"cross_board",
+      //   },
+      //   headers: {
+      //     'Access-Control-Allow-Origin' : '*',
+      //     'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      //   }
+      // }
+      // console.log(cfg);
+      // axios(cfg).then((result)=>{
+      //   console.log(result.data);
+      // }).catch((err)=>{
+      //   console.log(err);
+      // });
+    },
+  }
+
   useEffect(() => {
     prepare(Config.node,(res)=>{
       if(API.polkadot!==null){
@@ -143,6 +184,19 @@ function App() {
           setInfo(`Lastest Finalized : ${block.toLocaleString()}`);
         },true);
       }
+    });
+
+    const data={
+      id:"abc",
+      method:"test",
+      params:{
+        v:"vhistory",
+        a:"view",
+      },
+    }
+    const URL="http://127.0.0.1:8001";
+    test.jsonp(URL,data,(res)=>{
+      console.log(res);
     });
   }, []);
 

@@ -15,9 +15,9 @@ function CApp(props) {
     params:{},
   };
 
-  const easyProtocol=window.easy;
+  const easyProtocol=window.Easy;
   const APIs={
-    anchorJS:window.anchorJS,
+    anchorJS:window.AnchorJS,
     easy:easyProtocol.easyRun,
   }
 

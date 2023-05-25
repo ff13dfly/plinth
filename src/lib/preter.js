@@ -6,8 +6,8 @@ import Error from '../component/error.js';
 import Remove from '../component/remove.js';
 
 const params={
-  unique:undefined,    //key from up to force update 
-  remove:false,     //wether show remove function
+  unique:undefined,     //key from up to force update 
+  remove:false,         //wether show remove function
 };
 
 const Preter={
