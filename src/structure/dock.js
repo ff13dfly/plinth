@@ -72,6 +72,7 @@ function Dock(props) {
   };
 
   useEffect(() => {
+    //console.log(props);
     const favs_list = STORAGE.getQueue("favs");
     setList(favs_list);
   }, []);

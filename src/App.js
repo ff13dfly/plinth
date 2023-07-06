@@ -16,7 +16,7 @@ import { Config } from './config/default.js';
 //import { easyRun } from "./lib/easy";
 import STORAGE from './lib/storage';
 
-const anchorJS = window.AnchorJS;
+const anchorJS = window.AnchorJS;   
 const dot=window.Polkadot;
 const easy=window.Easy;
 const ApiPromise=dot.ApiPromise;
@@ -37,7 +37,6 @@ function App() {
   //init actions.
   STORAGE.setMap(Config.map);
   let [info,setInfo]=useState("");
-  //force fresh vars.
 
   //Common APIs
   let API={
@@ -137,66 +136,21 @@ function App() {
     },
   };
 
-  const test={
-    jsonp:(server,data,ck)=>{
-      var uri=server+'?';
-      if(data.id) uri += `id=${data.id}&`;
-      if(data.method) uri += `method=${data.method}&`;
-      for(var k in data.params) uri += `${k}=${data.params[k]}&`;
-      uri+='callback=?';
-      console.log(`${uri}`);
-      window.$.getJSON({type:'get',url:uri,async:false,success:function(res){
-          return ck && ck(res);
-      }});
-    },
-    axios:()=>{
-      //const axios = require('axios').default;
-      // const URL="http://127.0.0.1:8001";
-      // const cfg={
-      //   method: 'post',
-      //   url: URL,
-      //   data: {
-      //       "jsonrpc":"2.0",
-      //       "method":"apart",
-      //       "params":{
-      //           "name":"node_me"
-      //       },
-      //       "id":"cross_board",
-      //   },
-      //   headers: {
-      //     'Access-Control-Allow-Origin' : '*',
-      //     'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      //   }
-      // }
-      // console.log(cfg);
-      // axios(cfg).then((result)=>{
-      //   console.log(result.data);
-      // }).catch((err)=>{
-      //   console.log(err);
-      // });
+  const self={
+    getCurrentServer:()=>{
+      const cur=STORAGE.getKey(Config.map.current);
+      return cur===null?Config.node:cur;
     },
   }
 
   useEffect(() => {
-    prepare(Config.node,(res)=>{
+    const cur_node=self.getCurrentServer();
+    prepare(cur_node,(res)=>{
       if(API.polkadot!==null){
         anchorJS.subcribe((list,block)=>{
           setInfo(`Lastest Finalized : ${block.toLocaleString()}`);
         },true);
       }
-    });
-
-    const data={
-      id:"abc",
-      method:"test",
-      params:{
-        v:"vhistory",
-        a:"view",
-      },
-    }
-    const URL="http://127.0.0.1:8001";
-    test.jsonp(URL,data,(res)=>{
-      console.log(res);
     });
   }, []);
 

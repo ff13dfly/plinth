@@ -19,6 +19,11 @@ exports.Config = {
         favs:"plinth_fav_queue",
         data:"plinth_fav_map",
         accounts:"plinth_account_list",
+        nodes:"plinth_nodes_list",              //history nodes list
+        current:"plinth_current",
+    },
+    prefix:{
+        fav:"pp_favs_",
     },
     //network interaction
     node:"ws://127.0.0.1:9944",
