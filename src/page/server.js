@@ -31,7 +31,8 @@ function Server(props) {
       setList(nlist);
     },
     onSelect:(ev)=>{
-      setIndex(ev.target.value);
+      const index=parseInt(ev.target.value);
+      setIndex(index);
     },
     onRemove: () => {
       if(index+2>list.length) return setMore(`Invalide index : ${index}`);
@@ -45,7 +46,15 @@ function Server(props) {
     onLink: () => {
       if(!list[index]) return setMore(`Invalide index : ${index}`);
       STORAGE.setKey("current", list[index]);
-      setMore(`Set successful, please fresh the page.`);
+
+      const nlist=[list[index]];
+      for (let i = 0; i < list.length; i++) {
+        if(i!==index) nlist.push(list[i]);
+      }
+      STORAGE.setKey("nodes", nlist);
+      if(!props.fresh) return setMore(`Set successful, please fresh the page.`);
+      props.dialog.hide();
+      props.fresh();
     },
     nodeValid: (str) => {
       if (str.substr(0, 5) === "ws://") return true;
@@ -104,9 +113,8 @@ function Server(props) {
           </Col>
           <Col lg={2} xs={2} className="pt-2 text-end" >
             <Button
-              size="sm"
+              size="md"
               variant="danger"
-              className='pt-2'
               onClick={() => {
                 self.onRemove()
               }}
@@ -115,9 +123,8 @@ function Server(props) {
           <Col lg={8} xs={8} className="pt-2" >{more}</Col>
           <Col lg={4} xs={4} className="pt-2 text-end" >
             <Button
-              size="sm"
+              size="md"
               variant="primary"
-              className='pt-2'
               onClick={() => {
                 self.onLink()
               }}

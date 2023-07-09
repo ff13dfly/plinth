@@ -33,7 +33,7 @@ function Dock(props) {
     },
     server: {
       title: "Server Management",
-      content: <Server />,
+      content: <Server fresh={props.fresh} dialog={props.dialog}/>,
     },
   };
   //console.log(`Force id:${ukey}`);

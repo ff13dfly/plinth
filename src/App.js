@@ -141,17 +141,20 @@ function App() {
       const cur=STORAGE.getKey('current');
       return cur===null?Config.node:cur;
     },
+    fresh:()=>{
+      const cur_node=self.getCurrentServer();
+      prepare(cur_node,(res)=>{
+        if(API.polkadot!==null){
+          anchorJS.subcribe((list,block)=>{
+            setInfo(`Lastest Finalized : ${block.toLocaleString()}`);
+          },true);
+        }
+      });
+    },
   }
 
   useEffect(() => {
-    const cur_node=self.getCurrentServer();
-    prepare(cur_node,(res)=>{
-      if(API.polkadot!==null){
-        anchorJS.subcribe((list,block)=>{
-          setInfo(`Lastest Finalized : ${block.toLocaleString()}`);
-        },true);
-      }
-    });
+    self.fresh();
   }, []);
 
   return (
@@ -177,7 +180,7 @@ function App() {
             {dancer}
           </Col>
           <Col md={2} lg={2} xl={2} xxl={2} className="pt-2 d-none d-md-block d-lg-block d-xl-block  d-xl-block" >
-            <Dock stage={stage} dialog={dialog} key={key_dock} />
+            <Dock stage={stage} dialog={dialog} key={key_dock} fresh={self.fresh} />
           </Col>
         </Row>
       </Container>

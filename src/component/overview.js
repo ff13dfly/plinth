@@ -20,7 +20,6 @@ function Overview(props) {
 
   const self={
     add:(name)=>{
-      
       if(self.inArray(name,list)){
         const nlist=[name];
         for(let i=0;i<list.length;i++) if(list[i]!==name) nlist.push(list[i]);
