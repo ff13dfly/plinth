@@ -24,6 +24,7 @@ exports.Config = {
     },
     prefix:{
         fav:"pp_favs_",
+        anchor:"pp_man_",
     },
     //network interaction
     node:"ws://127.0.0.1:9944",

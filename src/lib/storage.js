@@ -17,9 +17,14 @@ const STORAGE={
 		};
 	},
 	setMap:(obj) => {
+		//console.log(obj);
 		for(var k in obj){
 			map[k]=obj[k];
 		}
+		return true;
+	},
+	getMap:(str)=>{
+		if(!map[str]) return null;
 		return true;
 	},
 
@@ -74,9 +79,13 @@ const STORAGE={
 
 	//key-queue
 	getQueue:(name)=>{
+		//console.log(map);
+		//console.log(name);
 		if(!map[name]) return [];
 		const key=map[name];
+		//console.log(key);
 		const str=localStorage.getItem(key);
+		//console.log(str);
 		if(str===null) return [];
 		return JSON.parse(str);
 	},

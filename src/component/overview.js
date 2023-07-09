@@ -1,6 +1,7 @@
 import { Row, Col, Badge, Button } from 'react-bootstrap';
 import { useReducer} from 'react';
 import STORAGE from '../lib/storage.js';
+import PUB from '../lib/pub.js';
 
 import CApp from './capp.js';
 import Debug from './debug.js';
@@ -13,34 +14,21 @@ function Overview(props) {
   const anchor=props.anchor;
   const easy=props.easy;
 
-  const list=STORAGE.getQueue("favs");
+  //const list=STORAGE.getQueue("favs");
+  const list=PUB.getServerFav();
 
-  //console.log(anchor);
-  console.log(easy);
+  //console.log(easy);
 
   const self={
     add:(name)=>{
-      if(self.inArray(name,list)){
-        const nlist=[name];
-        for(let i=0;i<list.length;i++) if(list[i]!==name) nlist.push(list[i]);
-        STORAGE.setKey("favs",nlist);
-      }else{
-        STORAGE.footQueue("favs",name);
-      }
+      PUB.setServerFav(name);
       stage.force({dancer:true});
       setTimeout(forceUpdate,50);
     },
     remove:(name)=>{
-      const nlist=[];
-      for(let i=0;i<list.length;i++) if(list[i]!==name) nlist.push(list[i]);
-      STORAGE.setKey("favs",nlist);
+      PUB.removeServerFav(name);
       stage.force({dancer:true});
       setTimeout(forceUpdate,50);
-    },
-
-    inArray:(key,arr)=>{
-      for(let i=0;i<arr.length;i++) if(arr[i]===key) return true;
-      return false;
     },
     run:()=>{
       stage.set(<CApp 
@@ -57,10 +45,10 @@ function Overview(props) {
       <Col lg={2} className="pt-2 text-end">
         <Button size="md" variant="primary" onClick={()=>{
           self.add(anchor.name);
-        }} hidden={self.inArray(anchor.name,list)}>Fav</Button>
+        }} hidden={PUB.inArray(anchor.name,list)}>Fav</Button>
         <Button size="md" variant="primary" onClick={()=>{
           self.remove(anchor.name);
-        }} hidden={!self.inArray(anchor.name,list)}>Unfav</Button>
+        }} hidden={!PUB.inArray(anchor.name,list)}>Unfav</Button>
       </Col>
       <Col lg={2} className="pt-2 text-end">
         <Button 

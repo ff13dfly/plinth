@@ -61,18 +61,12 @@ function Server(props) {
       if (str.substr(0, 6) === "wss://") return true;
       return false;
     },
-    getCurrentServer: () => {
-      const cur = STORAGE.getKey('current');
-      return cur === null ? Config.node : cur;
-    },
   }
 
   useEffect(() => {
-    const cur = self.getCurrentServer();
-    console.log(cur);
-
+    //const cur = PUB.getCurrentServer();
     const svcs = STORAGE.getQueue("nodes");
-    if (svcs.length === 0) svcs.push("ws://127.0.0.1:9944");
+    if (svcs.length === 0) svcs.push(Config.node);
     setList(svcs);
   }, []);
 

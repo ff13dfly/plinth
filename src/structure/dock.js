@@ -2,6 +2,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 
 import { Config } from '../config/default.js';
+import PUB from '../lib/pub.js';
 
 import Setting from '../page/setting';
 import Publish from '../page/publish';
@@ -72,8 +73,8 @@ function Dock(props) {
   };
 
   useEffect(() => {
-    //console.log(props);
-    const favs_list = STORAGE.getQueue("favs");
+    //const favs_list = STORAGE.getQueue("favs");
+    const favs_list=PUB.getServerFav();
     setList(favs_list);
   }, []);
 
@@ -112,11 +113,11 @@ function Dock(props) {
               self.showDialog("server");
             }} >Server</Button>
           </Col>
-          <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
+          {/* <Col md={12} lg={12} xl={12} xxl={12} className="pt-2 d-grid gap-2">
             <Button size="sm" variant="light" onClick={() => {
               self.showDialog("setting");
             }} >Setting</Button>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </Container>
