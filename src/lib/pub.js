@@ -1,6 +1,7 @@
 import { Config } from '../config/default.js';
 import STORAGE from './storage.js';
 
+
 const PUB = {
     getCurrentServer: () => {
         const cur = STORAGE.getKey('current');
@@ -40,7 +41,7 @@ const PUB = {
                 if (!sign.address || !sign.encoded) return ck && ck({error:'Error encry JSON file'}) ;
                 if (sign.address.length !== 48) return ck && ck({error:'Error SS58 address'});
                 if (sign.encoded.length !== 268) return ck && ck({error:'Error encoded verification'});
-                return ck && ck(true);
+                return ck && ck(sign);
             } catch (error) {
                return ck && ck({error:'Not encry JSON file'});
             }
@@ -48,7 +49,31 @@ const PUB = {
         reader.readAsText(fa);
     },
     decodeEncryFile:(fa,pass,ck)=>{
-
+        const anchorJS = window.AnchorJS;
+        anchorJS.load(fa,pass,(pair)=>{
+            return ck && ck(pair);
+        });
+    },
+    getAccounts: () => {
+        return STORAGE.getQueue("accounts");
+    },
+    setAccount:(fa)=>{
+        const list=STORAGE.getQueue("accounts");
+        const nlist=[fa];
+        for (let i = 0; i < list.length; i++){
+            if(list[i].address!==fa.address) nlist.push(list[i]);
+        }
+        STORAGE.setKey("accounts", nlist);
+        return true;
+    },
+    removeAccount:(index)=>{
+        const list=STORAGE.getQueue("accounts");
+        const nlist=[];
+        for (let i = 0; i < list.length; i++){
+            if(i!==index) nlist.push(list[i]);
+        }
+        STORAGE.setKey("accounts", nlist);
+        return true;
     },
     inArray: (key, arr) => {
         for (let i = 0; i < arr.length; i++) if (arr[i] === key) return true;

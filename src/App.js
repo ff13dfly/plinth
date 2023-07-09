@@ -71,6 +71,7 @@ function App() {
   //Stage actions
   let [stageList,setStageList]=useState([]);
   let [dancer,setDancer]=useState(<Stage content={stageList} key={key_dancer}/>);
+  let [left,setLeft]=useState(10);
   const stage={
     set:(view,fresh,clear)=>{
       if(clear) stageList=[];
@@ -86,6 +87,12 @@ function App() {
     },
     clear:()=>{
       setStageList([]);
+    },
+    full:()=>{
+      setLeft(12);
+    },
+    unfull:()=>{
+      setLeft(10);
     },
 
     //FIXME get APIs here is not proper, but better that global `window.$API`
@@ -164,7 +171,7 @@ function App() {
       <Container id={Config.ID.stage} fluid>
         <Row>
           <Col md={12} lg={12} xl={12} xxl={12} className="pt-2" ></Col>
-          <Col md={10} lg={10} xl={10} xxl={10} className="pt-2" >
+          <Col md={left} lg={left} xl={left} xxl={left} className="pt-2" >
             <Row className='vh-75'>
               <Col xs={4} md={3} lg={2} xl={2} xxl={2}  className="pt-2">
                 <img src="logo.png" alt="Plinth logo" className='img-fluid' />
@@ -179,7 +186,7 @@ function App() {
             </Row>
             {dancer}
           </Col>
-          <Col md={2} lg={2} xl={2} xxl={2} className="pt-2 d-none d-md-block d-lg-block d-xl-block  d-xl-block" >
+          <Col md={12-left} lg={12-left} xl={12-left} xxl={12-left} className="pt-2 d-none d-md-block d-lg-block d-xl-block  d-xl-block" >
             <Dock stage={stage} dialog={dialog} key={key_dock} fresh={self.fresh} />
           </Col>
         </Row>

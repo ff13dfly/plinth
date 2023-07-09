@@ -19,7 +19,7 @@ const Preter={
     const stage=interaction.stage;
     const dialog=interaction.dialog;
 
-    console.log(anchorJS);
+    //console.log(anchorJS);
     anchorJS.search(name,(anchor)=>{
       //console.log(anchor);
       const ukey=!cfg.unique?0:cfg.unique;

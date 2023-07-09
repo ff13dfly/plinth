@@ -19,6 +19,7 @@ function Dock(props) {
   let [list, setList] = useState([]);
   const stage = props.stage;
   const dialog = props.dialog;
+  //console.log(stage);
   const pages = {
     setting: {
       title: "Setting",
@@ -70,6 +71,9 @@ function Dock(props) {
       dialog.set(tpl.content, tpl.title);
       dialog.show();
     },
+    hideDock:()=>{
+      stage.full();
+    },
   };
 
   useEffect(() => {
@@ -81,11 +85,11 @@ function Dock(props) {
   return (
     <Container id={Config.ID.dock} className='vh-100 position-relative' >
       <Row className='vh-75'>
-        <Col md={7} lg={7} xl={7} xxl={7} className="pt-2">
-          Panel
-        </Col>
+        <Col md={7} lg={7} xl={7} xxl={7} className="pt-2">Favs</Col>
         <Col md={5} lg={5} xl={5} xxl={5} className="pt-2 text-end">
-          <Button size="sm" variant="light" onClick={() => { }} >Hide</Button>
+          {/* <Button size="sm" variant="light" onClick={() => {
+            self.hideDock();
+          }} >Hide</Button> */}
         </Col>
         {list.map((item, index) => (
           <Col md={12} lg={12} xl={12} xxl={12} key={index} className="pt-2 d-grid gap-2">

@@ -5,8 +5,7 @@ import STORAGE from '../lib/storage.js';
 import { Config } from '../config/default.js';
 
 function Server(props) {
-  //props.stage
-  console.log(props.stage)
+  //console.log(props.stage)
   let [info, setInfo] = useState('');
   let [more, setMore] = useState('');
   let [nnode, setNnode] = useState('');
@@ -78,7 +77,7 @@ function Server(props) {
         <Row>
           <Col lg={12} xs={12} className="pt-2" >
             <Form.Control
-              size="sm"
+              size="md"
               type="text"
               placeholder="Anchor node URL..."
               onChange={(ev) => { self.onChange(ev) }}
@@ -87,7 +86,7 @@ function Server(props) {
           <Col lg={8} xs={8} className="pt-2" >{info}</Col>
           <Col lg={4} xs={4} className="pt-2 text-end" >
             <Button
-              size="sm"
+              size="md"
               variant="primary"
               className='pt-2'
               onClick={() => {
