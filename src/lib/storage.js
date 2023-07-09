@@ -52,6 +52,7 @@ const STORAGE={
 		return JSON.parse(str);
 	},
 	setKey:(name,obj) => {
+		//console.log(name);
 		//console.log(JSON.stringify(map));
 		if(!map[name]) return false;
 		const key=map[name];

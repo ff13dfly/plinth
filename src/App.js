@@ -138,7 +138,7 @@ function App() {
 
   const self={
     getCurrentServer:()=>{
-      const cur=STORAGE.getKey(Config.map.current);
+      const cur=STORAGE.getKey('current');
       return cur===null?Config.node:cur;
     },
   }
