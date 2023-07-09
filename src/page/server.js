@@ -5,7 +5,8 @@ import STORAGE from '../lib/storage.js';
 import { Config } from '../config/default.js';
 
 function Server(props) {
-
+  //props.stage
+  console.log(props.stage)
   let [info, setInfo] = useState('');
   let [more, setMore] = useState('');
   let [nnode, setNnode] = useState('');
@@ -54,6 +55,7 @@ function Server(props) {
       STORAGE.setKey("nodes", nlist);
       if(!props.fresh) return setMore(`Set successful, please fresh the page.`);
       props.dialog.hide();
+      props.stage.force({dancer:true});
       props.fresh();
     },
     nodeValid: (str) => {

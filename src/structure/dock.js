@@ -11,7 +11,7 @@ import Server from '../page/server';
 
 import Error from '../component/error.js';
 import Preter from '../lib/preter.js';
-import STORAGE from '../lib/storage.js';
+//import STORAGE from '../lib/storage.js';
 
 function Dock(props) {
 
@@ -34,7 +34,7 @@ function Dock(props) {
     },
     server: {
       title: "Server Management",
-      content: <Server fresh={props.fresh} dialog={props.dialog}/>,
+      content: <Server fresh={props.fresh} dialog={props.dialog} stage={props.stage}/>,
     },
   };
   //console.log(`Force id:${ukey}`);
