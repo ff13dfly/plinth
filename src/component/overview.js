@@ -21,6 +21,8 @@ function Overview(props) {
 
   const self={
     add:(name)=>{
+      //TODO,check the limitation of max favs
+      
       PUB.setServerFav(name);
       stage.force({dancer:true});
       setTimeout(forceUpdate,50);

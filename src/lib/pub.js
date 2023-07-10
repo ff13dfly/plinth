@@ -20,9 +20,11 @@ const PUB = {
     setServerFav: (name) => {
         const svc = PUB.getCurrentServer();
         const list = PUB.getServerFav();
+        if(list.length>=15) return {error:"Max of favs."};
         const nlist = [name];
         for (let i = 0; i < list.length; i++) if (list[i] !== name) nlist.push(list[i]);
         STORAGE.setKey(svc, nlist);
+        return true;
     },
     removeServerFav: (name) => {
         const svc = PUB.getCurrentServer();

@@ -41,13 +41,6 @@ function Mine(props) {
           }}
         />
       </Col>
-      {/* <Col lg={4} xs={4}>
-        <Form.Select onChange={(ev) => { self.onSelect(ev) }}>
-          <option value="1">App</option>
-          <option value="2">Lib</option>
-          <option value="2">Data</option>
-        </Form.Select>
-      </Col> */}
       <Col lg={2} xs={2} className=''>
         <Button
           size="md"
