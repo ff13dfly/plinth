@@ -5,22 +5,28 @@ import PUB from '../lib/pub';
 
 function Update(props) {
   let [info, setInfo] = useState('');
+  let [show, setShow] = useState({data:true,app:false,lib:false,other:false});
+
+  let [cat,setCat]=useState('data');
   let [raw, serRaw] = useState('');
   let [ver, serVer] = useState('1.0.0');
   let [format, setFormat] = useState('json');
-  let [tpl, serTpl] = useState('');
-  let [libs, serLibs] = useState([]);
+  let [tpl, setTpl] = useState('');
+  let [libs, setLibs] = useState([]);
   let [type,setType]=useState(false);
-  let [pass, serPass] = useState('');
+  let [pass, setPass] = useState('');
   let [index, setIndex] = useState(0);
   let [accounts,setAccounts]=useState([]);
+  
 
   const self = {
     onUpdate: (ev) => {
-      //console.log(ver);
-      //console.log(format);
       const p=self.getProtocol();
-      console.log(p);
+      //console.log(p);
+      console.log({raw,ver,format,tpl,libs,type,pass,cat,index})
+    },
+    rawChange: (ev) => {
+      serRaw(ev.target.value);
     },
     versionChange: (ev) => {
       serVer(ev.target.value);
@@ -28,20 +34,57 @@ function Update(props) {
     formatChange: (ev) => {
       setFormat(ev.target.value);
     },
+    tplChange: (ev) => {
+      setTpl(ev.target.value);
+    },
+    libChange:(ev)=>{
+      const arr=ev.target.value.split(",");
+      console.log(arr);
+      setLibs(arr);
+    },
     typeChange:(ev)=>{
       setType(!type);
     },
     passChange:(ev)=>{
-      serPass(ev.target.value);
+      setPass(ev.target.value);
     },
     accountSelect:(ev)=>{
       const index = parseInt(ev.target.value);
       setIndex(index);
     },
+    catSelect:(ev)=>{
+      const cat=ev.target.value;
+      setCat(cat);
+      self.render(cat);
+      if(cat==="app" || cat==="lib")setFormat("js");
+      if(cat==="data")setFormat("json");
+    },
+    render:(cat)=>{
+      const nshow={}
+      for(var k in show) nshow[k]=false;
+      if(nshow[cat]===undefined) nshow.other=true;
+      nshow[cat]=true;
+      //console.log(nshow);
+      setShow(nshow);
+    },
     getProtocol:()=>{
-      const p={type:"data",fmt:format}
+      const p={type:cat,fmt:format}
       if(ver) p.ver=ver;
       if(tpl) p.tpl=tpl;
+
+      switch (cat) {
+        case 'data':
+          
+          break;
+        case 'app':
+          
+          break;
+        case 'lib':
+          
+          break;  
+        default:
+          break;
+      }
 
       return p;
     },
@@ -75,10 +118,58 @@ function Update(props) {
           disabled={type}
           hidden={type}
           placeholder="Raw data..."
-          onChange={(ev) => { }} />
+          onChange={(ev) => {
+            self.rawChange(ev)
+          }} />
       </Col>
-      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Version</Col>
+      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Type</Col>
+      <Col md={5} lg={5} xl={5} xxl={5} className='pt-2'>
+      <Form.Select onChange={(ev) => { self.catSelect(ev) }}>
+            <option value={'data'} >data</option>
+            <option value={'app'} >app</option>
+            <option value={'lib'} >lib</option>
+        </Form.Select>
+      </Col>
+      
+      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Format</Col>
       <Col md={3} lg={3} xl={3} xxl={3} className='pt-2'>
+        <Form.Control
+          size="md"
+          type="text"
+          placeholder="As js"
+          value={format}
+          onChange={(ev) => {
+            self.formatChange(ev);
+          }}
+        />
+      </Col>
+      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3' hidden={!(show.app || show.lib)}>Libs</Col>
+      <Col md={5} lg={5} xl={5} xxl={5} className='pt-2' hidden={!(show.app || show.lib)}>
+        <Form.Control
+          size="md"
+          type="text"
+          placeholder="JSON format"
+          onChange={(ev) => {
+            self.libChange(ev);
+          }}
+        />
+      </Col>
+      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3' hidden={!(show.app)}></Col>
+      <Col md={3} lg={3} xl={3} xxl={3} className='pt-2' hidden={!(show.app)}></Col>
+      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3' hidden={!(show.app)}>Template</Col>
+      <Col md={5} lg={5} xl={5} xxl={5} className='pt-2' hidden={!(show.app)}>
+        <Form.Control
+          size="md"
+          type="text"
+          placeholder="React, node.js ..."
+          onChange={(ev) => {
+            self.tplChange(ev);
+          }}
+        />
+      </Col>
+      
+      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3' hidden={!(show.app || show.lib)}>Version</Col>
+      <Col md={3} lg={3} xl={3} xxl={3} className='pt-2' hidden={!(show.app || show.lib)}>
         <Form.Control
           size="md"
           type="text"
@@ -89,39 +180,7 @@ function Update(props) {
           }}
         />
       </Col>
-      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Libs</Col>
-      <Col md={5} lg={5} xl={5} xxl={5} className='pt-2'>
-        <Form.Control
-          size="md"
-          type="text"
-          placeholder="Seprate by ,"
-          onChange={(ev) => {
-          }}
-        />
-      </Col>
-      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Format</Col>
-      <Col md={3} lg={3} xl={3} xxl={3} className='pt-2'>
-        <Form.Control
-          size="md"
-          type="text"
-          placeholder="As js"
-          value={format}
-          onChange={(ev) => {
-            self.codeChange(ev);
-          }}
-        />
-      </Col>
-      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Template</Col>
-      <Col md={5} lg={5} xl={5} xxl={5} className='pt-2'>
-
-        <Form.Control
-          size="md"
-          type="text"
-          placeholder="React, node.js ..."
-          onChange={(ev) => {
-          }}
-        />
-      </Col>
+      
       <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Account</Col>
       <Col md={10} lg={10} xl={10} xxl={10} className='pt-2'>
         <Form.Select onChange={(ev) => { self.accountSelect(ev) }}>
