@@ -1,6 +1,8 @@
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 
+import PUB from '../lib/pub';
+
 function Update(props) {
   let [info, setInfo] = useState('');
   let [raw, serRaw] = useState('');
@@ -9,11 +11,16 @@ function Update(props) {
   let [tpl, serTpl] = useState('');
   let [libs, serLibs] = useState([]);
   let [type,setType]=useState(false);
+  let [pass, serPass] = useState('');
+  let [index, setIndex] = useState(0);
+  let [accounts,setAccounts]=useState([]);
 
   const self = {
     onUpdate: (ev) => {
-      console.log(ver);
-      console.log(format);
+      //console.log(ver);
+      //console.log(format);
+      const p=self.getProtocol();
+      console.log(p);
     },
     versionChange: (ev) => {
       serVer(ev.target.value);
@@ -23,11 +30,25 @@ function Update(props) {
     },
     typeChange:(ev)=>{
       setType(!type);
-      //console.log(ev.target.value);
+    },
+    passChange:(ev)=>{
+      serPass(ev.target.value);
+    },
+    accountSelect:(ev)=>{
+      const index = parseInt(ev.target.value);
+      setIndex(index);
+    },
+    getProtocol:()=>{
+      const p={type:"data",fmt:format}
+      if(ver) p.ver=ver;
+      if(tpl) p.tpl=tpl;
+
+      return p;
     },
   }
   useEffect(() => {
-    //setInfo('Done');
+    const accs=PUB.getAccounts();
+    setAccounts(accs);
   }, []);
 
   return (
@@ -101,7 +122,25 @@ function Update(props) {
           }}
         />
       </Col>
-      <Col md={8} lg={8} xl={8} xxl={8}>{info}</Col>
+      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Account</Col>
+      <Col md={10} lg={10} xl={10} xxl={10} className='pt-2'>
+        <Form.Select onChange={(ev) => { self.accountSelect(ev) }}>
+          {accounts.map((item, index) => (
+            <option value={index} key={index}>{item.address}</option>
+          ))}
+        </Form.Select>
+      </Col>
+      <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Password</Col>
+      <Col md={6} lg={6} xl={6} xxl={6} className='pt-2'>
+      <Form.Control
+          size="md"
+          type="password"
+          placeholder="Password to write..."
+          onChange={(ev) => {
+            self.passChange(ev);
+          }}
+        />
+      </Col>
       <Col md={4} lg={4} xl={4} xxl={4} className='pt-2 text-end'>
         <Button
           size="md"
@@ -111,6 +150,7 @@ function Update(props) {
           }}
         > Update </Button>
       </Col>
+      <Col md={12} lg={12} xl={12} xxl={12} className='pt-2'>{info}</Col>
     </Row>
   );
 }

@@ -5,6 +5,7 @@ import PUB from '../lib/pub';
 
 import Update from '../component/update';
 import Mine from '../component/mine';
+import Footprint from '../component/footprint';
 
 function Publish(props) {
 
@@ -12,24 +13,36 @@ function Publish(props) {
   let [list, setList] = useState([]);
   let [index, setIndex] = useState(0);
   let [disable,setDisable] = useState(true);
+  let [history,setHistory]=useState('');
 
   const self = {
     onSelect: (ev) => {
       const index = parseInt(ev.target.value);
-      console.log(index);
+      //console.log(index);
       setIndex(index);
+      const pubs = PUB.getPublish();
+      const anchor=pubs[index];
+      self.history(anchor);
     },
-    fresh: () => {
+    fresh: (index) => {
       const pubs = PUB.getPublish();
       setList(pubs);
-      console.log(pubs);
+      setHistory('');
+
       if(pubs.length!==0){
         setDisable(false);
         const anchor=pubs[0];
-        console.log(anchor);
+        self.history(anchor);
       }else{
         setDisable(true);
       }
+    },
+    history:(anchor)=>{
+      const anchorJS = window.AnchorJS;
+      anchorJS.history(anchor,(res)=>{
+        if(res===false) return setHistory(`Anchor "${anchor}" is not init on chain.`);
+        setHistory(<Footprint list={res}/>)
+      });
     },
     onRemove: () => {
       PUB.removePublish(index);
@@ -65,9 +78,7 @@ function Publish(props) {
       <Col lg={9} xs={9} className="pt-2">
         <Update hidden={disable}/>
       </Col>
-      <Col lg={3} xs={3} className="pt-2">
-        History
-      </Col>
+      <Col lg={3} xs={3} className="pt-2">{history}</Col>
       <Col lg={12} xs={12}><hr /></Col>
       <Col lg={12} xs={12} className="pt-2" >
         <Mine fresh={self.fresh} />

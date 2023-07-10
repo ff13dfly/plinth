@@ -1,4 +1,4 @@
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button, Badge } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import PUB from '../lib/pub';
 
@@ -97,8 +97,9 @@ function Account(props) {
                 }}
               > X </Button>
             </Col>
-            <Col lg={11} xs={11} className="pt-2"  >{item.address}-{item.meta.name}</Col>
-
+            <Col lg={11} xs={11} className="pt-2">
+              <Badge bg="info">{item.meta.name}</Badge>{item.address}
+            </Col>
           </Row>
         ))}
       </Col>
