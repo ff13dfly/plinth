@@ -23,7 +23,6 @@ function History(props) {
   useEffect(() => {
     //setInfo('Done');
   }, []);
-
   return (
     <Row>
       <Col lg={8} className="pt-2" >

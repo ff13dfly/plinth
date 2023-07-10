@@ -1,7 +1,6 @@
 import { Config } from '../config/default.js';
 import STORAGE from './storage.js';
 
-
 const PUB = {
     getCurrentServer: () => {
         const cur = STORAGE.getKey('current');
@@ -54,6 +53,35 @@ const PUB = {
             return ck && ck(pair);
         });
     },
+    getPublish: () => {
+        return STORAGE.getQueue("publish");
+    },
+    setPublish:(name)=>{
+        const list=STORAGE.getQueue("publish");
+        const nlist=[name];
+        for (let i = 0; i < list.length; i++){
+            if(list[i]!==name) nlist.push(list[i]);
+        }
+        STORAGE.setKey("publish", nlist);
+        return true;
+    },
+    removePublish:(index)=>{
+        const list=STORAGE.getQueue("publish");
+        const nlist=[];
+        for (let i = 0; i < list.length; i++){
+            if(i!==index) nlist.push(list[i]);
+        }
+        STORAGE.setKey("publish", nlist);
+        return true;
+    },
+    checkAnchor:(name,ck)=>{
+        const anchorJS = window.AnchorJS;
+        anchorJS.search(name,(res)=>{
+            if(res===false) return ck && ck();
+            console.log(res);
+        });
+    },
+
     getAccounts: () => {
         return STORAGE.getQueue("accounts");
     },

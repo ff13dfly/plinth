@@ -21,6 +21,7 @@ exports.Config = {
         accounts:"plinth_account_list",
         nodes:"plinth_nodes_list",              //history nodes list
         current:"plinth_current",
+        publish:"plinth_publish",
     },
     prefix:{
         fav:"pp_favs_",
