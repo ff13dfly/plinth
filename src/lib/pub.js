@@ -105,6 +105,14 @@ const PUB = {
         STORAGE.setKey("accounts", nlist);
         return true;
     },
+    // verify:(fa,pass,ck)=>{
+
+    // },
+    writeToChian:(anchor,protocol,raw,pair,ck)=>{
+        const anchorJS = window.AnchorJS;
+        //pair, anchor, raw, protocol,
+        anchorJS.write(pair,anchor,raw,JSON.stringify(protocol),ck);
+    },
     balance:(address,ck)=>{
         const anchorJS = window.AnchorJS;
         return anchorJS.balance(address,ck);

@@ -30,7 +30,17 @@ function Update(props) {
       const acc=accounts[index];
 
       console.log({name:target,raw:ctx,protocol:p,account:acc,password:pass});
-      //console.log({raw,ver,format,tpl,libs,type,pass,cat,index})
+
+      PUB.decodeEncryFile(acc, pass, (pair) => {
+        if(pair.error){
+          return false;
+        }
+        //console.log(pair);
+        PUB.writeToChian(target,p,ctx,pair,(res)=>{
+          console.log(res);
+        });
+      });
+      
     },
     rawChange: (ev) => {
       setRaw(ev.target.value);
