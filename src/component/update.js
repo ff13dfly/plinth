@@ -8,28 +8,35 @@ function Update(props) {
   let [show, setShow] = useState({data:true,app:false,lib:false,other:false});
 
   let [cat,setCat]=useState('data');
-  let [raw, serRaw] = useState('');
-  let [ver, serVer] = useState('1.0.0');
+  let [raw, setRaw] = useState('');
+  let [content, setContent] = useState('');
+  let [ver, setVer] = useState('1.0.0');
   let [format, setFormat] = useState('json');
   let [tpl, setTpl] = useState('');
   let [libs, setLibs] = useState([]);
   let [type,setType]=useState(false);
+
   let [pass, setPass] = useState('');
   let [index, setIndex] = useState(0);
   let [accounts,setAccounts]=useState([]);
+  let [amount,setAmount] = useState(0);         //Account coin amount
   
-
+  const target=props.anchor;
+  
   const self = {
     onUpdate: (ev) => {
       const p=self.getProtocol();
-      //console.log(p);
-      console.log({raw,ver,format,tpl,libs,type,pass,cat,index})
+      const ctx=!type?raw:content;
+      const acc=accounts[index];
+
+      console.log({name:target,raw:ctx,protocol:p,account:acc,password:pass});
+      //console.log({raw,ver,format,tpl,libs,type,pass,cat,index})
     },
     rawChange: (ev) => {
-      serRaw(ev.target.value);
+      setRaw(ev.target.value);
     },
     versionChange: (ev) => {
-      serVer(ev.target.value);
+      setVer(ev.target.value);
     },
     formatChange: (ev) => {
       setFormat(ev.target.value);
@@ -38,9 +45,23 @@ function Update(props) {
       setTpl(ev.target.value);
     },
     libChange:(ev)=>{
-      const arr=ev.target.value.split(",");
-      console.log(arr);
-      setLibs(arr);
+      const str=ev.target.value;
+      try { 
+        const arr=JSON.parse(str);
+        //console.log(arr);
+        setLibs(arr);
+      } catch (error) {
+        
+      }
+    },
+    fileChange:(ev)=>{
+      const fa = ev.target.files[0];
+      //console.log(fa);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setContent(e.target.result);
+      }
+      reader.readAsText(fa);
     },
     typeChange:(ev)=>{
       setType(!type);
@@ -51,6 +72,7 @@ function Update(props) {
     accountSelect:(ev)=>{
       const index = parseInt(ev.target.value);
       setIndex(index);
+      self.balance(index);
     },
     catSelect:(ev)=>{
       const cat=ev.target.value;
@@ -58,6 +80,13 @@ function Update(props) {
       self.render(cat);
       if(cat==="app" || cat==="lib")setFormat("js");
       if(cat==="data")setFormat("json");
+    },
+    balance:(index)=>{
+      const accs=PUB.getAccounts();
+      PUB.balance(accs[index].address,(res)=>{
+        setAmount(parseInt(res.free*0.000000000001).toLocaleString());
+        //console.log(res);
+      });
     },
     render:(cat)=>{
       const nshow={}
@@ -69,18 +98,17 @@ function Update(props) {
     },
     getProtocol:()=>{
       const p={type:cat,fmt:format}
-      if(ver) p.ver=ver;
-      if(tpl) p.tpl=tpl;
-
       switch (cat) {
         case 'data':
-          
           break;
         case 'app':
-          
+          if(ver) p.ver=ver;
+          if(tpl) p.tpl=tpl;
+          if(libs.length!==0) p.lib=libs;
           break;
         case 'lib':
-          
+          if(ver) p.ver=ver;
+          if(libs.length!==0) p.lib=libs;
           break;  
         default:
           break;
@@ -92,6 +120,7 @@ function Update(props) {
   useEffect(() => {
     const accs=PUB.getAccounts();
     setAccounts(accs);
+    self.balance(0);
   }, []);
 
   return (
@@ -182,13 +211,14 @@ function Update(props) {
       </Col>
       
       <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Account</Col>
-      <Col md={10} lg={10} xl={10} xxl={10} className='pt-2'>
+      <Col md={6} lg={6} xl={6} xxl={6} className='pt-2'>
         <Form.Select onChange={(ev) => { self.accountSelect(ev) }}>
           {accounts.map((item, index) => (
             <option value={index} key={index}>{item.address}</option>
           ))}
         </Form.Select>
       </Col>
+      <Col md={4} lg={4} xl={4} xxl={4} className='pt-3'>{amount} unit</Col>
       <Col md={2} lg={2} xl={2} xxl={2} className='pt-3'>Password</Col>
       <Col md={6} lg={6} xl={6} xxl={6} className='pt-2'>
       <Form.Control
@@ -207,7 +237,7 @@ function Update(props) {
           onClick={(ev) => {
             self.onUpdate(ev)
           }}
-        > Update </Button>
+        > To Chian </Button>
       </Col>
       <Col md={12} lg={12} xl={12} xxl={12} className='pt-2'>{info}</Col>
     </Row>

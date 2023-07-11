@@ -14,6 +14,7 @@ function Publish(props) {
   let [index, setIndex] = useState(0);
   let [disable,setDisable] = useState(true);
   let [history,setHistory]=useState('');
+  let [target,setTarget]=useState('');
 
   const self = {
     onSelect: (ev) => {
@@ -23,9 +24,11 @@ function Publish(props) {
       const pubs = PUB.getPublish();
       const anchor=pubs[index];
       self.history(anchor);
+      setTarget(anchor);
     },
     fresh: (index) => {
       const pubs = PUB.getPublish();
+      setTarget(pubs[0]);
       setList(pubs);
       setHistory('');
 
@@ -76,7 +79,7 @@ function Publish(props) {
       </Col>
 
       <Col lg={9} xs={9} className="pt-2">
-        <Update hidden={disable}/>
+        <Update hidden={disable} anchor={target}/>
       </Col>
       <Col lg={3} xs={3} className="pt-2">{history}</Col>
       <Col lg={12} xs={12}><hr /></Col>

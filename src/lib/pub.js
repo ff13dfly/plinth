@@ -105,6 +105,10 @@ const PUB = {
         STORAGE.setKey("accounts", nlist);
         return true;
     },
+    balance:(address,ck)=>{
+        const anchorJS = window.AnchorJS;
+        return anchorJS.balance(address,ck);
+    },
     inArray: (key, arr) => {
         for (let i = 0; i < arr.length; i++) if (arr[i] === key) return true;
         return false;
