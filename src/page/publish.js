@@ -24,6 +24,7 @@ function Publish(props) {
       const pubs = PUB.getPublish();
       const anchor=pubs[index];
       self.history(anchor);
+      self.owner(anchor);
       setTarget(anchor);
     },
     fresh: (index) => {
@@ -36,9 +37,16 @@ function Publish(props) {
         setDisable(false);
         const anchor=pubs[0];
         self.history(anchor);
+        self.owner(anchor);
       }else{
         setDisable(true);
       }
+    },
+    owner:(anchor)=>{
+      PUB.owner(anchor,(res)=>{
+        //console.log(res);
+        setInfo(PUB.shortenAddress(res));
+      });
     },
     history:(anchor)=>{
       const anchorJS = window.AnchorJS;
@@ -75,8 +83,7 @@ function Publish(props) {
           }}
         > X </Button>
       </Col>
-      <Col lg={6} xs={6} className="pt-2">
-      </Col>
+      <Col lg={6} xs={6} className="pt-3">{info}</Col>
 
       <Col lg={9} xs={9} className="pt-2">
         <Update hidden={disable} anchor={target}/>
