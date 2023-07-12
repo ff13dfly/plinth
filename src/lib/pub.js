@@ -10,7 +10,6 @@ const PUB = {
     getServerFav: () => {
         const svc = PUB.getCurrentServer();
         const favs = `${Config.prefix.fav}${svc}`;
-        //console.log(STORAGE.getMap(svc));
         if (STORAGE.getMap(svc) === null) {
             const obj = {}
             obj[svc] = favs;
@@ -51,7 +50,6 @@ const PUB = {
         reader.readAsText(fa);
     },
     decodeEncryFile: (fa, pass, ck) => {
-        //const anchorJS = window.AnchorJS;
         anchorJS.load(fa, pass, (pair) => {
             return ck && ck(pair);
         });
@@ -78,7 +76,6 @@ const PUB = {
         return true;
     },
     checkAnchor: (name, ck) => {
-        //const anchorJS = window.AnchorJS;
         anchorJS.search(name, (res) => {
             if (res === false) return ck && ck();
             console.log(res);
@@ -106,20 +103,32 @@ const PUB = {
         STORAGE.setKey("accounts", nlist);
         return true;
     },
-    // verify:(fa,pass,ck)=>{
-
-    // },
     writeToChian: (anchor, protocol, raw, pair, ck) => {
-
-        //pair, anchor, raw, protocol,
+        if(!anchorJS.ready()) return setTimeout(() => {
+            return PUB.writeToChian(pair, anchor, raw, JSON.stringify(protocol), ck);
+        }, 200);
         anchorJS.write(pair, anchor, raw, JSON.stringify(protocol), ck);
     },
     balance: (address, ck) => {
-        //const anchorJS = window.AnchorJS;
+        if(!anchorJS.ready()) return setTimeout(() => {
+            return PUB.balance(address,ck);
+        }, 200);
         return anchorJS.balance(address, ck);
     },
     owner: (address, ck) => {
+        if(!anchorJS.ready()) return setTimeout(() => {
+            return PUB.owner(address, ck);
+        }, 200);
         return anchorJS.owner(address, ck);
+    },
+    history:(anchor,ck)=>{
+        if(!anchorJS.ready()) return setTimeout(() => {
+            return PUB.history(anchor,ck);
+        }, 200);
+        return anchorJS.history(anchor,(res)=>{
+            if(res===false) return ck && ck({error:`No such Anchor "${anchor}"`});
+            return ck && ck(res);
+        });
     },
     inArray: (key, arr) => {
         for (let i = 0; i < arr.length; i++) if (arr[i] === key) return true;
@@ -128,6 +137,6 @@ const PUB = {
     shortenAddress: (address, n) => {
         if (n === undefined) n = 10;
         return address.substr(0, n) + '...' + address.substr(address.length - n, n);
-      },
+    },
 }
 export default PUB;

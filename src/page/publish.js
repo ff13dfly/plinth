@@ -49,9 +49,8 @@ function Publish(props) {
       });
     },
     history:(anchor)=>{
-      const anchorJS = window.AnchorJS;
-      anchorJS.history(anchor,(res)=>{
-        if(res===false) return setHistory(`Anchor "${anchor}" is not init on chain.`);
+      PUB.history(anchor,(res)=>{
+        if(res.error) return setHistory(res.error);
         setHistory(<Footprint list={res}/>)
       });
     },

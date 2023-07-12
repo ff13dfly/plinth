@@ -51,7 +51,6 @@ function Dock(props) {
     },
     load: (name) => {
       const APIs = stage.getAPIs();
-
       stage.set([<Error data={`Loading`} key={props.fresh}/>],true,true);
 
       const interaction={
