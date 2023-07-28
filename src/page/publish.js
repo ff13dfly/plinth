@@ -44,7 +44,7 @@ function Publish(props) {
     },
     owner:(anchor)=>{
       PUB.owner(anchor,(res)=>{
-        //console.log(res);
+        if(res===false) return setInfo("Error");
         setInfo(PUB.shortenAddress(res));
       });
     },
