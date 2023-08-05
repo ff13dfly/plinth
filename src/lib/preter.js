@@ -38,7 +38,8 @@ const Preter={
           "history":anchorJS.history,
           "owner":anchorJS.owner,
           "subcribe":anchorJS.subcribe,
-          //"block":anchorJS.block,
+          "multi":anchorJS.multi,
+          "block": anchorJS.block,
         },
       }
 

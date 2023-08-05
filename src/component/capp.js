@@ -32,7 +32,7 @@ function CApp(props) {
 
   const self={
     loadReact:(js,css,code)=>{
-      console.log(code)
+      //console.log(code)
       const frame = document.getElementById('react_frame');
       const iwind = frame.contentWindow;
 

@@ -13,7 +13,6 @@ import Search from './structure/search';
 
 import { Config } from './config/default.js';
 
-//import { easyRun } from "./lib/easy";
 import STORAGE from './lib/storage';
 
 const anchorJS = window.AnchorJS;   
