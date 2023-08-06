@@ -19,8 +19,8 @@ function Publish(props) {
   const self = {
     onSelect: (ev) => {
       const index = parseInt(ev.target.value);
-      //console.log(index);
       setIndex(index);
+      
       const pubs = PUB.getPublish();
       const anchor=pubs[index];
       self.history(anchor);

@@ -100,6 +100,7 @@ function Update(props) {
     },
     balance: (index) => {
       const accs = PUB.getAccounts();
+      if(!accs[index]) return false;
       PUB.balance(accs[index].address, (res) => {
         setAmount(parseInt(res.free * 0.000000000001).toLocaleString());
         //console.log(res);
@@ -136,6 +137,7 @@ function Update(props) {
   }
   useEffect(() => {
     const accs = PUB.getAccounts();
+    console.log(accs);
     setAccounts(accs);
     self.balance(0);
   }, []);
